@@ -114,10 +114,14 @@ export const index = () => {
 
   if (Object.keys(token).length !== 0) {
     return (
-      <div className="w-100">
-        <div>
-          <div className="w-80 mx-auto">
-            <img src={token.profile.images[0].url} />
+      <div className="w-100 h-screen w-screen flex">
+        <div className="w-1/5 bg-black"></div>
+        <div className="gradient w-full h-full">
+          <div className="w-4/5 mx-auto">
+            <img
+              className="mx-auto rounded-full"
+              src={token.profile.images[0].url}
+            />
             <h1 className="spotifyGreen text-4xl">
               {token.profile.display_name}
             </h1>

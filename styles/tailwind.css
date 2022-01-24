@@ -2,6 +2,15 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+@font-face {
+  font-family: "Spotify";
+  src: url("./fonts/GothamBook.ttf");
+}
+@font-face {
+  font-family: "SpotifyBold";
+  src: url("./fonts/GothamBold.ttf");
+}
+
 .bg-white-half {
   background: linear-gradient(to bottom, #fff 0%, #fff 50%, transparent 50%);
 }
@@ -10,13 +19,34 @@ html,
 body {
   overflow-x: hidden;
   background-color: #191414;
-  font-family: sans-serif;
+  font-family: "Spotify";
 }
 
 .spotifyGreen {
   color: #1db954;
 }
 
+.bgSpotifyGreen {
+  background-color: #1db954;
+}
+.bgSpotifyGreen:hover {
+  background-color: #3db968;
+}
+
 .spotifyBlack {
   color: #191414;
+}
+
+.spotifyBold {
+  font-family: "SpotifyBold";
+}
+
+.gradient {
+  background: rgb(82, 23, 64);
+  background: linear-gradient(
+    180deg,
+    rgba(82, 23, 64, 1) 0%,
+    rgba(25, 20, 20, 1) 56%,
+    rgba(25, 20, 20, 1) 100%
+  );
 }
