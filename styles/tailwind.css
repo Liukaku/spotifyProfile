@@ -1,0 +1,22 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+.bg-white-half {
+  background: linear-gradient(to bottom, #fff 0%, #fff 50%, transparent 50%);
+}
+
+html,
+body {
+  overflow-x: hidden;
+  background-color: #191414;
+  font-family: sans-serif;
+}
+
+.spotifyGreen {
+  color: #1db954;
+}
+
+.spotifyBlack {
+  color: #191414;
+}

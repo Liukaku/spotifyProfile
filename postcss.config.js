@@ -1,7 +1,18 @@
 module.exports = {
-  plugins: {
-    tailwindcss: {},
-    autoprefixer: {},
-  },
-  purge: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
+  plugins: [
+    "tailwindcss",
+    [
+      "postcss-preset-env",
+      {
+        autoprefixer: {
+          flexbox: "no-2009",
+        },
+        stage: 3,
+        features: {
+          "custom-properties": false,
+          "nesting-rules": true,
+        },
+      },
+    ],
+  ],
 };
