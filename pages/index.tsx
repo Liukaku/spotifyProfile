@@ -1,10 +1,22 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Logo from "../imgs/Spotify_Icon_RGB_White.png";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
 
+interface TheState {
+  errors: boolean;
+}
+
 const Home: NextPage = () => {
+  const [errors, updateErr] = useState<TheState>({ errors: false });
+  useEffect(() => {
+    if (window.location.search === "?error" && !errors.errors) {
+      updateErr({ errors: true });
+    }
+  });
+
   const client: string = "db7d70beb5d14841b699b7df68b56a1c";
   const secret: string = "1316d41696ed444f88a9365c755eb8f2";
   const redirect: string = "http://localhost:3000/callback";
@@ -30,6 +42,16 @@ const Home: NextPage = () => {
     `https://accounts.spotify.com/en/authorize?${JSON.stringify(
       query
     )}`.replace('"', "");
+
+  const errorHandle = () => {
+    if (errors.errors) {
+      return (
+        <h1 className="text-red-500 text-center">
+          There has been an error, please try logging in again
+        </h1>
+      );
+    }
+  };
   return (
     <div className="">
       <Head>
@@ -53,6 +75,7 @@ const Home: NextPage = () => {
         >
           Log in to Spotify
         </a>
+        {errorHandle()}
       </div>
     </div>
   );

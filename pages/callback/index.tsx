@@ -1,47 +1,94 @@
 import React from "react";
+import Head from "next/head";
 import useRouter from "next/router";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { NextPage } from "next";
 
-export const index = () => {
-  const [token, updateToken] = useState<object>({});
+interface TheState {
+  token: any;
+  music: any;
+  profile: any;
+}
+
+export const index: NextPage = () => {
+  const [token, updateToken] = useState<TheState>({
+    token: {},
+    music: {},
+    profile: {},
+  });
 
   const query: any = useRouter;
-  const client: string = "db7d70beb5d14841b699b7df68b56a1c";
-  const secret: string = "1316d41696ed444f88a9365c755eb8f2";
+  const client = "db7d70beb5d14841b699b7df68b56a1c";
+  const secret = "1316d41696ed444f88a9365c755eb8f2";
 
   useEffect(() => {
     //const accessCode: string = query.router.query.code;
-    if (Object.keys(token).length === 0) {
-      const accessCode: string = window.location.search
-        .split("&state")[0]
-        .replace("?code=", "");
-      fetch("https://accounts.spotify.com/api/token", {
-        method: "post",
-        body: `grant_type=authorization_code&code=${accessCode}&redirect_uri=http://localhost:3000/callback`,
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-          Authorization: `Basic ${Buffer.from(`${client}:${secret}`).toString(
-            "base64"
-          )}`,
-        },
-      })
-        .then((res) => {
-          let tokens: object = res.body;
-          return res.json();
+    if (Object.keys(token.token).length === 0) {
+      if (localStorage.getItem("bearer")) {
+        console.log("using stored token");
+        fetch("https://api.spotify.com/v1/me/top/artists", {
+          method: "get",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("bearer")}`,
+          },
         })
-        .then((data) => {
-          console.log(data);
-          const accessToken = data;
-          if (accessToken.error) {
-            console.log("allo");
-            if (localStorage.getItem("bearer")) {
-              console.log("using stored token");
+          .then((res) => {
+            return res.json();
+          })
+          .then((res: object) => {
+            console.log(res);
+
+            const songs = res;
+            fetch("https://api.spotify.com/v1/me", {
+              method: "get",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem("bearer")}`,
+              },
+            })
+              .then((res) => {
+                return res.json();
+              })
+              .then((res: object) => {
+                updateToken({
+                  token: { success: true },
+                  music: songs,
+                  profile: res,
+                });
+              });
+          });
+      } else {
+        const accessCode: string = window.location.search
+          .split("&state")[0]
+          .replace("?code=", "");
+        fetch("https://accounts.spotify.com/api/token", {
+          method: "post",
+          body: `grant_type=authorization_code&code=${accessCode}&redirect_uri=http://localhost:3000/callback`,
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            Authorization: `Basic ${Buffer.from(`${client}:${secret}`).toString(
+              "base64"
+            )}`,
+          },
+        })
+          .then((res) => {
+            let tokens: object = res.body;
+            return res.json();
+          })
+          .then((data) => {
+            console.log(data);
+            const accessToken = data;
+            if (accessToken.error) {
+              window.location.assign("/?error");
+              console.log("there has been an error");
+            } else {
               fetch("https://api.spotify.com/v1/me/top/artists", {
                 method: "get",
                 headers: {
                   "Content-Type": "application/json",
-                  Authorization: `Bearer ${localStorage.getItem("bearer")}`,
+                  Authorization: `Bearer ${data.access_token}`,
                 },
               })
                 .then((res) => {
@@ -55,7 +102,7 @@ export const index = () => {
                     method: "get",
                     headers: {
                       "Content-Type": "application/json",
-                      Authorization: `Bearer ${localStorage.getItem("bearer")}`,
+                      Authorization: `Bearer ${data.access_token}`,
                     },
                   })
                     .then((res) => {
@@ -70,61 +117,52 @@ export const index = () => {
                       });
                     });
                 });
-            } else {
-              console.log("no token in storage");
             }
-          } else {
-            fetch("https://api.spotify.com/v1/me/top/artists", {
-              method: "get",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${data.access_token}`,
-              },
-            })
-              .then((res) => {
-                return res.json();
-              })
-              .then((res: object) => {
-                console.log(res);
-
-                const songs = res;
-                fetch("https://api.spotify.com/v1/me", {
-                  method: "get",
-                  headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${data.access_token}`,
-                  },
-                })
-                  .then((res) => {
-                    return res.json();
-                  })
-                  .then((res: object) => {
-                    localStorage.setItem("bearer", accessToken.access_token);
-                    updateToken({
-                      token: accessToken,
-                      music: songs,
-                      profile: res,
-                    });
-                  });
-              });
-          }
-        });
+          });
+      }
     }
   }, []);
 
-  if (Object.keys(token).length !== 0) {
+  if (Object.keys(token.token).length !== 0) {
     return (
       <div className="w-100 h-screen w-screen flex">
+        <Head>
+          <title>Spotify Profile</title>
+          <meta name="description" content="Generated by create next app" />
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
         <div className="w-1/5 bg-black"></div>
         <div className="gradient w-full h-full">
           <div className="w-4/5 mx-auto">
             <img
               className="mx-auto rounded-full"
               src={token.profile.images[0].url}
+              height="100"
+              width="100"
             />
             <h1 className="spotifyGreen text-4xl">
               {token.profile.display_name}
             </h1>
+          </div>
+          <div className="w-full h-full flex">
+            <div className="w-1/2 h-full bg-white"></div>
+            <div className="w-1/2 h-full">
+              {token.music.items.map((item: object, n: number): JSX.Element => {
+                if (n < 5) {
+                  console.log("run " + n);
+                  return (
+                    <div className="h-1/6 w-full" key={`album${n}`}>
+                      <img
+                        src={token.music.items[n].images[0].url}
+                        height="100"
+                        width="100"
+                      />
+                      <h1>Allo</h1>
+                    </div>
+                  );
+                }
+              })}
+            </div>
           </div>
         </div>
       </div>
