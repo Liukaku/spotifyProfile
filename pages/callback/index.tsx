@@ -4,6 +4,7 @@ import useRouter from "next/router";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { NextPage } from "next";
+import Modal from "../../components/modal";
 
 interface TheState {
   token: any;
@@ -18,73 +19,58 @@ export const index: NextPage = () => {
     profile: {},
   });
 
-  const query: any = useRouter;
+  const [modal, toggleModal] = useState(false);
+
   const client = "db7d70beb5d14841b699b7df68b56a1c";
   const secret = "1316d41696ed444f88a9365c755eb8f2";
 
   useEffect(() => {
     //const accessCode: string = query.router.query.code;
     if (Object.keys(token.token).length === 0) {
-      if (localStorage.getItem("bearer")) {
-        console.log("using stored token");
-        fetch("https://api.spotify.com/v1/me/top/artists", {
-          method: "get",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("bearer")}`,
-          },
-        })
-          .then((res) => {
-            return res.json();
-          })
-          .then((res: object) => {
-            console.log(res);
+      getEverything();
+    }
+  }, []);
 
-            const songs = res;
-            fetch("https://api.spotify.com/v1/me", {
-              method: "get",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${localStorage.getItem("bearer")}`,
-              },
-            })
-              .then((res) => {
-                return res.json();
-              })
-              .then((res: object) => {
-                updateToken({
-                  token: { success: true },
-                  music: songs,
-                  profile: res,
-                });
-              });
-          });
-      } else {
-        const accessCode: string = window.location.search
-          .split("&state")[0]
-          .replace("?code=", "");
-        fetch("https://accounts.spotify.com/api/token", {
-          method: "post",
-          body: `grant_type=authorization_code&code=${accessCode}&redirect_uri=http://localhost:3000/callback`,
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-            Authorization: `Basic ${Buffer.from(`${client}:${secret}`).toString(
-              "base64"
-            )}`,
-          },
-        })
-          .then((res) => {
-            let tokens: object = res.body;
-            return res.json();
+  const getEverything = () => {
+    const accessCode: string = window.location.search
+      .split("&state")[0]
+      .replace("?code=", "");
+    fetch("https://accounts.spotify.com/api/token", {
+      method: "post",
+      body: `grant_type=authorization_code&code=${accessCode}&redirect_uri=http://localhost:3000/callback`,
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: `Basic ${Buffer.from(`${client}:${secret}`).toString(
+          "base64"
+        )}`,
+      },
+    })
+      .then((res) => {
+        let tokens: object = res.body;
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data);
+        const accessToken = data;
+        if (accessToken.error) {
+          window.location.assign("/?error");
+          console.log("there has been an error");
+        } else {
+          fetch("https://api.spotify.com/v1/me/top/artists", {
+            method: "get",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${data.access_token}`,
+            },
           })
-          .then((data) => {
-            console.log(data);
-            const accessToken = data;
-            if (accessToken.error) {
-              window.location.assign("/?error");
-              console.log("there has been an error");
-            } else {
-              fetch("https://api.spotify.com/v1/me/top/artists", {
+            .then((res) => {
+              return res.json();
+            })
+            .then((res: object) => {
+              console.log(res);
+
+              const songs = res;
+              fetch("https://api.spotify.com/v1/me", {
                 method: "get",
                 headers: {
                   "Content-Type": "application/json",
@@ -95,33 +81,16 @@ export const index: NextPage = () => {
                   return res.json();
                 })
                 .then((res: object) => {
-                  console.log(res);
-
-                  const songs = res;
-                  fetch("https://api.spotify.com/v1/me", {
-                    method: "get",
-                    headers: {
-                      "Content-Type": "application/json",
-                      Authorization: `Bearer ${data.access_token}`,
-                    },
-                  })
-                    .then((res) => {
-                      return res.json();
-                    })
-                    .then((res: object) => {
-                      localStorage.setItem("bearer", accessToken.access_token);
-                      updateToken({
-                        token: accessToken,
-                        music: songs,
-                        profile: res,
-                      });
-                    });
+                  updateToken({
+                    token: accessToken,
+                    music: songs,
+                    profile: res,
+                  });
                 });
-            }
-          });
-      }
-    }
-  }, []);
+            });
+        }
+      });
+  };
 
   if (Object.keys(token.token).length !== 0) {
     return (
@@ -135,6 +104,9 @@ export const index: NextPage = () => {
         <div className="gradient w-full h-full">
           <div className="w-4/5 mx-auto">
             <img
+              onClick={(e) => {
+                toggleModal(true);
+              }}
               className="mx-auto rounded-full"
               src={token.profile.images[0].url}
               height="100"
@@ -145,19 +117,27 @@ export const index: NextPage = () => {
             </h1>
           </div>
           <div className="w-full h-full flex">
-            <div className="w-1/2 h-full bg-white"></div>
-            <div className="w-1/2 h-full">
+            <div className="w-1/2 h-1/2 bg-white"></div>
+            <div className="w-1/2 h-auto ">
+              <h1 className="text-white font-extrabold ml-10 mt-5">
+                Top Artists
+              </h1>
               {token.music.items.map((item: object, n: number): JSX.Element => {
                 if (n < 5) {
-                  console.log("run " + n);
                   return (
-                    <div className="h-1/6 w-full" key={`album${n}`}>
+                    <div
+                      className="h-1/12 w-10/12 flex bg-white/20 hover:bg-white/60 duration-500 rounded-lg mt-10 ml-5 cursor-pointer"
+                      key={`album${n}`}
+                    >
                       <img
+                        className="w-2/12"
                         src={token.music.items[n].images[0].url}
-                        height="100"
-                        width="100"
+                        height="50"
+                        width="50"
                       />
-                      <h1>Allo</h1>
+                      <h1 className="mt-7 ml-3 font-bold text-white ">
+                        {token.music.items[n].name}
+                      </h1>
                     </div>
                   );
                 }
@@ -165,6 +145,18 @@ export const index: NextPage = () => {
             </div>
           </div>
         </div>
+        <Modal
+          toggle={modal}
+          content={
+            <button
+              onClick={(e) => {
+                toggleModal(false);
+              }}
+            >
+              click me
+            </button>
+          }
+        />
       </div>
     );
   } else {
