@@ -124,6 +124,7 @@ export const index: NextPage = () => {
               </h1>
               {token.music.items.map((item: object, n: number): JSX.Element => {
                 if (n < 5) {
+                  //TODO: create a component for this to display within so they can each have their own modal
                   return (
                     <div
                       className="h-1/12 w-10/12 flex bg-white/20 hover:bg-white/60 duration-500 rounded-lg mt-10 ml-5 cursor-pointer"
@@ -138,6 +139,18 @@ export const index: NextPage = () => {
                       <h1 className="mt-7 ml-3 font-bold text-white ">
                         {token.music.items[n].name}
                       </h1>
+                      <Modal
+                        toggle={modal}
+                        content={
+                          <button
+                            onClick={(e) => {
+                              toggleModal(false);
+                            }}
+                          >
+                            {token.music.items[n].name}
+                          </button>
+                        }
+                      />
                     </div>
                   );
                 }
@@ -145,18 +158,6 @@ export const index: NextPage = () => {
             </div>
           </div>
         </div>
-        <Modal
-          toggle={modal}
-          content={
-            <button
-              onClick={(e) => {
-                toggleModal(false);
-              }}
-            >
-              click me
-            </button>
-          }
-        />
       </div>
     );
   } else {
