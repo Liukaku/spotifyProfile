@@ -5,6 +5,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { NextPage } from "next";
 import Modal from "../../components/modal";
+import Artist from "../../components/artist";
 
 interface TheState {
   token: any;
@@ -18,8 +19,6 @@ export const index: NextPage = () => {
     music: {},
     profile: {},
   });
-
-  const [modal, toggleModal] = useState(false);
 
   const client = "db7d70beb5d14841b699b7df68b56a1c";
   const secret = "1316d41696ed444f88a9365c755eb8f2";
@@ -104,9 +103,6 @@ export const index: NextPage = () => {
         <div className="gradient w-full h-full">
           <div className="w-4/5 mx-auto">
             <img
-              onClick={(e) => {
-                toggleModal(true);
-              }}
               className="mx-auto rounded-full"
               src={token.profile.images[0].url}
               height="100"
@@ -116,43 +112,21 @@ export const index: NextPage = () => {
               {token.profile.display_name}
             </h1>
           </div>
-          <div className="w-full h-full flex">
+          <div className="w-full h-5/6 flex">
             <div className="w-1/2 h-1/2 bg-white"></div>
-            <div className="w-1/2 h-auto ">
-              <h1 className="text-white font-extrabold ml-10 mt-5">
-                Top Artists
-              </h1>
+            <div className="w-1/2 h-5/6 ">
+              <div className=" flex justify-between">
+                <h1 className="text-white font-extrabold ml-10 mt-5">
+                  Top Artists
+                </h1>
+                <a className="text-white font-extrabold mr-64 mt-5 rounded-full border border-white border-solid pt-2 pb-2 px-4">
+                  See More
+                </a>
+              </div>
               {token.music.items.map((item: object, n: number): JSX.Element => {
                 if (n < 5) {
                   //TODO: create a component for this to display within so they can each have their own modal
-                  return (
-                    <div
-                      className="h-1/12 w-10/12 flex bg-white/20 hover:bg-white/60 duration-500 rounded-lg mt-10 ml-5 cursor-pointer"
-                      key={`album${n}`}
-                    >
-                      <img
-                        className="w-2/12"
-                        src={token.music.items[n].images[0].url}
-                        height="50"
-                        width="50"
-                      />
-                      <h1 className="mt-7 ml-3 font-bold text-white ">
-                        {token.music.items[n].name}
-                      </h1>
-                      <Modal
-                        toggle={modal}
-                        content={
-                          <button
-                            onClick={(e) => {
-                              toggleModal(false);
-                            }}
-                          >
-                            {token.music.items[n].name}
-                          </button>
-                        }
-                      />
-                    </div>
-                  );
+                  return <Artist data={token.music.items[n]} key={n} />;
                 }
               })}
             </div>

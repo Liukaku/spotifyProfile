@@ -11,7 +11,7 @@ const Modal = (props) => {
     <div
       className={
         display
-          ? "absolute ml-32 mt-16 w-10/12 h-5/6 bg-white z-10"
+          ? "absolute top-0 left-0 ml-32 mt-16 w-10/12 h-5/6 bg-white z-10"
           : "hidden ml-32 mt-16 w-10/12 h-5/6 bg-white z-10"
       }
       id="modalWindow"
