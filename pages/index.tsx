@@ -21,7 +21,7 @@ const Home: NextPage = () => {
   const secret: string = "1316d41696ed444f88a9365c755eb8f2";
   const redirect: string = "http://localhost:3000/callback";
   const scope: string =
-    "user-read-private user-read-email user-read-playback-position user-top-read user-read-recently-played";
+    "user-read-private user-read-email user-read-playback-position user-top-read user-read-recently-played user-follow-read";
 
   const generateRandomString = (length: number) => {
     let text: string = "";

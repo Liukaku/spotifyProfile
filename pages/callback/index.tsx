@@ -6,11 +6,14 @@ import { useState, useEffect } from "react";
 import { NextPage } from "next";
 import Modal from "../../components/modal";
 import Artist from "../../components/artist";
+import Profile from "../../components/profile";
 
 interface TheState {
   token: any;
   music: any;
   profile: any;
+  following: any;
+  playlists: any;
 }
 
 export const index: NextPage = () => {
@@ -18,6 +21,8 @@ export const index: NextPage = () => {
     token: {},
     music: {},
     profile: {},
+    following: {},
+    playlists: {},
   });
 
   const client = "db7d70beb5d14841b699b7df68b56a1c";
@@ -80,11 +85,40 @@ export const index: NextPage = () => {
                   return res.json();
                 })
                 .then((res: object) => {
-                  updateToken({
-                    token: accessToken,
-                    music: songs,
-                    profile: res,
-                  });
+                  const profileRes = res;
+                  fetch("https://api.spotify.com/v1/me/following?type=artist", {
+                    method: "get",
+                    headers: {
+                      "Content-Type": "application/json",
+                      Authorization: `Bearer ${data.access_token}`,
+                    },
+                  })
+                    .then((res) => {
+                      return res.json();
+                    })
+                    .then((res: object) => {
+                      const followingRes = res;
+                      fetch("https://api.spotify.com/v1/me/playlists", {
+                        method: "get",
+                        headers: {
+                          "Content-Type": "application/json",
+                          Authorization: `Bearer ${data.access_token}`,
+                        },
+                      })
+                        .then((res) => {
+                          return res.json();
+                        })
+                        .then((res: object) => {
+                          const playlistRes = res;
+                          updateToken({
+                            token: accessToken,
+                            music: songs,
+                            profile: profileRes,
+                            following: followingRes,
+                            playlists: playlistRes,
+                          });
+                        });
+                    });
                 });
             });
         }
@@ -101,17 +135,11 @@ export const index: NextPage = () => {
         </Head>
         <div className="w-1/5 bg-black"></div>
         <div className="gradient w-full h-full">
-          <div className="w-4/5 mx-auto">
-            <img
-              className="mx-auto rounded-full"
-              src={token.profile.images[0].url}
-              height="100"
-              width="100"
-            />
-            <h1 className="spotifyGreen text-4xl">
-              {token.profile.display_name}
-            </h1>
-          </div>
+          <Profile
+            props={token.profile}
+            playlists={token.playlists.total}
+            following={token.following.artists.total}
+          />
           <div className="w-full h-5/6 flex">
             <div className="w-1/2 h-1/2 bg-white"></div>
             <div className="w-1/2 h-5/6 ">
