@@ -1,14 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 interface InitialProps {
-  tracks: TrackProps;
-}
-
-interface TrackProps {
-  href: string;
-  items: Array<TrackObj>;
-  limit: number;
-  next: string;
+  props: TrackObj;
 }
 
 interface TrackObj {
@@ -30,8 +23,16 @@ interface TrackImages {
 }
 
 const Tracks = (props: InitialProps) => {
-  const theTracks = props.tracks;
-  return <div></div>;
+  const theTrack = props.props;
+
+  return (
+    <div className="w-full">
+      <div
+        className="w-20 h-20 bg-center bg-contain cursor-pointer"
+        style={{ backgroundImage: `url(${theTrack.album.images[0].url})` }}
+      ></div>
+    </div>
+  );
 };
 
 export default Tracks;

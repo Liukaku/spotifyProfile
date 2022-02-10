@@ -160,7 +160,11 @@ export const index: NextPage = () => {
           />
           <div className="w-full h-5/6 flex">
             <div className="w-1/2 h-1/2 bg-white">
-              <Tracks tracks={token.tracks} />
+              {token.tracks.items.map((item: object, i: number) => {
+                if (i < 5) {
+                  return <Tracks props={token.tracks.items[i]} />;
+                }
+              })}
             </div>
             <div className="w-1/2 h-5/6 ">
               <div className=" flex justify-between">
