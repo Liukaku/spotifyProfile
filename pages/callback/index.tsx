@@ -7,10 +7,12 @@ import { NextPage } from "next";
 import Modal from "../../components/modal";
 import Artist from "../../components/artist";
 import Profile from "../../components/profile";
+import Tracks from "../../components/tracks";
 
 interface TheState {
   token: any;
   music: any;
+  tracks: any;
   profile: any;
   following: any;
   playlists: any;
@@ -20,6 +22,7 @@ export const index: NextPage = () => {
   const [token, updateToken] = useState<TheState>({
     token: {},
     music: {},
+    tracks: {},
     profile: {},
     following: {},
     playlists: {},
@@ -110,13 +113,28 @@ export const index: NextPage = () => {
                         })
                         .then((res: object) => {
                           const playlistRes = res;
-                          updateToken({
-                            token: accessToken,
-                            music: songs,
-                            profile: profileRes,
-                            following: followingRes,
-                            playlists: playlistRes,
-                          });
+
+                          fetch("https://api.spotify.com/v1/me/top/tracks", {
+                            method: "get",
+                            headers: {
+                              "Content-Type": "application/json",
+                              Authorization: `Bearer ${data.access_token}`,
+                            },
+                          })
+                            .then((res) => {
+                              return res.json();
+                            })
+                            .then((res: object) => {
+                              const topTracks = res;
+                              updateToken({
+                                token: accessToken,
+                                music: songs,
+                                tracks: topTracks,
+                                profile: profileRes,
+                                following: followingRes,
+                                playlists: playlistRes,
+                              });
+                            });
                         });
                     });
                 });
@@ -141,10 +159,12 @@ export const index: NextPage = () => {
             following={token.following.artists.total}
           />
           <div className="w-full h-5/6 flex">
-            <div className="w-1/2 h-1/2 bg-white"></div>
+            <div className="w-1/2 h-1/2 bg-white">
+              <Tracks tracks={token.tracks} />
+            </div>
             <div className="w-1/2 h-5/6 ">
               <div className=" flex justify-between">
-                <h1 className="text-white font-extrabold ml-10 mt-5">
+                <h1 className="text-white font-extrabold ml-10 pt-2 mt-5">
                   Top Artists
                 </h1>
                 <a className="text-white font-extrabold mr-64 mt-5 rounded-full border border-white border-solid pt-2 pb-2 px-4">

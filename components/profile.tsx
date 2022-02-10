@@ -35,20 +35,18 @@ const Profile = (props: any) => {
         {stateProps.display_name}
       </h1>
       <div className="w-6/12   spotifyGreen flex mx-auto justify-around">
-        <div className="flex flex-wrap w4/12 text-center">
+        <div className="flex flex-wrap w-4/12 text-center">
           <h1 className="w-full">{stateProps.followers.total}</h1>
           <h1 className="w-full text-white">Followers</h1>
         </div>
-        <div className="flex flex-wrap w4/12 text-center">
+        <div className="flex flex-wrap w-4/12 text-center">
           <h1 className="w-full">{props.following}</h1>
           <h1 className="w-full text-white">Following</h1>
         </div>
-        <div className="flex flex-wrap w4/12 text-center">
+        <div className="flex flex-wrap w-4/12 text-center">
           <h1 className="w-full">{props.playlists}</h1>
           <h1 className="w-full text-white">Playlists</h1>
         </div>
-        <div className="flex flex-wrap w4/12"></div>
-        <div className="flex flex-wrap w4/12"></div>
       </div>
     </div>
   );
