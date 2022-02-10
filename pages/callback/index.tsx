@@ -10,7 +10,6 @@ import Profile from "../../components/profile";
 import Tracks from "../../components/tracks";
 
 interface TheState {
-  token: any;
   music: any;
   tracks: any;
   profile: any;
@@ -18,9 +17,8 @@ interface TheState {
   playlists: any;
 }
 
-export const index: NextPage = () => {
+export const Index: NextPage = () => {
   const [token, updateToken] = useState<TheState>({
-    token: {},
     music: {},
     tracks: {},
     profile: {},
@@ -32,118 +30,140 @@ export const index: NextPage = () => {
   const secret = "1316d41696ed444f88a9365c755eb8f2";
 
   useEffect(() => {
-    //const accessCode: string = query.router.query.code;
-    if (Object.keys(token.token).length === 0) {
-      getEverything();
+    let useStorage = false;
+    if (parseInt(localStorage.getItem("Expires")) > new Date().getTime()) {
+      useStorage = true;
+    }
+    console.log(parseInt(localStorage.getItem("Expires")));
+    console.log(localStorage.getItem("Token"));
+    if (Object.keys(token.music).length === 0) {
+      getEverything(useStorage);
     }
   }, []);
 
-  const getEverything = () => {
-    const accessCode: string = window.location.search
-      .split("&state")[0]
-      .replace("?code=", "");
-    fetch("https://accounts.spotify.com/api/token", {
-      method: "post",
-      body: `grant_type=authorization_code&code=${accessCode}&redirect_uri=http://localhost:3000/callback`,
+  const getEverything = (useStorage: boolean) => {
+    console.log(useStorage);
+    if (useStorage) {
+      console.log("using stored token");
+      const expiresIn = parseInt(localStorage.getItem("Expires"));
+      const theAuth = localStorage.getItem("Token");
+      getTheRest(theAuth, expiresIn);
+    } else {
+      const accessCode: string = window.location.search
+        .split("&state")[0]
+        .replace("?code=", "");
+
+      fetch("https://accounts.spotify.com/api/token", {
+        method: "post",
+        body: `grant_type=authorization_code&code=${accessCode}&redirect_uri=http://localhost:3000/callback`,
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          Authorization: `Basic ${Buffer.from(`${client}:${secret}`).toString(
+            "base64"
+          )}`,
+        },
+      })
+        .then((res) => {
+          let tokens: object = res.body;
+          return res.json();
+        })
+        .then((data) => {
+          console.log(data);
+          const accessToken = data;
+          if (accessToken.error) {
+            // window.location.assign("/?error");
+            console.log("there has been an error");
+          } else {
+            getTheRest(data.access_token, data.expires_in);
+          }
+        });
+    }
+  };
+
+  const getTheRest = (access: string, expires: number) => {
+    fetch("https://api.spotify.com/v1/me/top/artists", {
+      method: "get",
       headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        Authorization: `Basic ${Buffer.from(`${client}:${secret}`).toString(
-          "base64"
-        )}`,
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${access}`,
       },
     })
       .then((res) => {
-        let tokens: object = res.body;
         return res.json();
       })
-      .then((data) => {
-        console.log(data);
-        const accessToken = data;
-        if (accessToken.error) {
-          window.location.assign("/?error");
-          console.log("there has been an error");
-        } else {
-          fetch("https://api.spotify.com/v1/me/top/artists", {
-            method: "get",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${data.access_token}`,
-            },
+      .then((res: object) => {
+        console.log(res);
+
+        const songs = res;
+        fetch("https://api.spotify.com/v1/me", {
+          method: "get",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${access}`,
+          },
+        })
+          .then((res) => {
+            return res.json();
           })
-            .then((res) => {
-              return res.json();
+          .then((res: object) => {
+            const profileRes = res;
+            fetch("https://api.spotify.com/v1/me/following?type=artist", {
+              method: "get",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${access}`,
+              },
             })
-            .then((res: object) => {
-              console.log(res);
-
-              const songs = res;
-              fetch("https://api.spotify.com/v1/me", {
-                method: "get",
-                headers: {
-                  "Content-Type": "application/json",
-                  Authorization: `Bearer ${data.access_token}`,
-                },
+              .then((res) => {
+                return res.json();
               })
-                .then((res) => {
-                  return res.json();
+              .then((res: object) => {
+                const followingRes = res;
+                fetch("https://api.spotify.com/v1/me/playlists", {
+                  method: "get",
+                  headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${access}`,
+                  },
                 })
-                .then((res: object) => {
-                  const profileRes = res;
-                  fetch("https://api.spotify.com/v1/me/following?type=artist", {
-                    method: "get",
-                    headers: {
-                      "Content-Type": "application/json",
-                      Authorization: `Bearer ${data.access_token}`,
-                    },
+                  .then((res) => {
+                    return res.json();
                   })
-                    .then((res) => {
-                      return res.json();
-                    })
-                    .then((res: object) => {
-                      const followingRes = res;
-                      fetch("https://api.spotify.com/v1/me/playlists", {
-                        method: "get",
-                        headers: {
-                          "Content-Type": "application/json",
-                          Authorization: `Bearer ${data.access_token}`,
-                        },
-                      })
-                        .then((res) => {
-                          return res.json();
-                        })
-                        .then((res: object) => {
-                          const playlistRes = res;
+                  .then((res: object) => {
+                    const playlistRes = res;
 
-                          fetch("https://api.spotify.com/v1/me/top/tracks", {
-                            method: "get",
-                            headers: {
-                              "Content-Type": "application/json",
-                              Authorization: `Bearer ${data.access_token}`,
-                            },
-                          })
-                            .then((res) => {
-                              return res.json();
-                            })
-                            .then((res: object) => {
-                              const topTracks = res;
-                              updateToken({
-                                token: accessToken,
-                                music: songs,
-                                tracks: topTracks,
-                                profile: profileRes,
-                                following: followingRes,
-                                playlists: playlistRes,
-                              });
-                            });
+                    fetch("https://api.spotify.com/v1/me/top/tracks", {
+                      method: "get",
+                      headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${access}`,
+                      },
+                    })
+                      .then((res) => {
+                        return res.json();
+                      })
+                      .then((res: object) => {
+                        localStorage.setItem("Token", access);
+                        localStorage.setItem(
+                          "Expires",
+                          `${new Date().getTime() + expires * 100}`
+                        );
+                        const topTracks = res;
+                        updateToken({
+                          music: songs,
+                          tracks: topTracks,
+                          profile: profileRes,
+                          following: followingRes,
+                          playlists: playlistRes,
                         });
-                    });
-                });
-            });
-        }
+                      });
+                  });
+              });
+          });
       });
   };
 
-  if (Object.keys(token.token).length !== 0) {
+  if (Object.keys(token.music).length !== 0) {
     return (
       <div className="w-100 h-screen w-screen flex">
         <Head>
@@ -191,4 +211,4 @@ export const index: NextPage = () => {
   }
 };
 
-export default index;
+export default Index;
