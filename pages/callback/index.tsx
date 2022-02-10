@@ -159,7 +159,7 @@ export const index: NextPage = () => {
             following={token.following.artists.total}
           />
           <div className="w-full h-5/6 flex">
-            <div className="w-1/2 h-1/2 bg-white">
+            <div className="w-1/2 h-1/2">
               {token.tracks.items.map((item: object, i: number) => {
                 if (i < 5) {
                   return <Tracks props={token.tracks.items[i]} />;
