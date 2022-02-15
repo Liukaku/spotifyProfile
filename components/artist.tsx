@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Modal from "./modal";
+import Tracks from "./tracks";
+import type { TrackObj, artistsObj, TrackAlbum, TrackImages } from "./tracks";
 
 interface PropsObj {
   data: {
@@ -10,6 +12,7 @@ interface PropsObj {
       href: string | null;
       total: number;
     };
+    id: string;
   };
   key: number;
 }
@@ -18,8 +21,58 @@ interface imgObj {
   url: String;
 }
 
+interface artistState {
+  tracks: Array<TrackObj>;
+  albums: object;
+  loading: boolean;
+}
+
 const Artist = (props: PropsObj) => {
   const [modal, toggleModal] = useState(false);
+  const [artist, updateArtist] = useState<artistState>({
+    tracks: [
+      {
+        album: {
+          artists: [],
+          images: [],
+        },
+        duration_ms: 0,
+        artists: [],
+        name: "",
+      },
+    ],
+    albums: {},
+    loading: true,
+  });
+
+  const getTracks = async (type: string) => {
+    const request = await fetch(
+      `https://api.spotify.com/v1/artists/${importProps.data.id}/${type}?country=GB`,
+      {
+        method: "get",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("Token")}`,
+        },
+      }
+    );
+    const response = await request.json();
+    return response;
+  };
+
+  useEffect(() => {
+    getTracks("top-tracks").then((res) => {
+      getTracks("albums").then((secRes) => {
+        console.log(res.tracks);
+        console.log(secRes);
+        updateArtist({
+          albums: secRes,
+          tracks: res.tracks,
+          loading: false,
+        });
+      });
+    });
+  }, []);
 
   const importProps: PropsObj = props;
 
@@ -59,22 +112,44 @@ const Artist = (props: PropsObj) => {
       >
         {importProps.data.name}
       </h1>
-      <Modal
-        toggle={modal}
-        content={
-          <div>
-            <h1 className="text-center font-extrabold text-7xl">
-              {importProps.data.name}
-            </h1>
-            <div className="flex max-w-sm mx-auto text-center ">
-              {importProps.data.genres.map((item: string, n: number) => {
-                return <h3 className="mx-auto">{item}</h3>;
-              })}
-            </div>
-            <h2 className="text-center">
-              {importProps.data.followers.total} followers
-            </h2>
-            {
+      {artist.loading === true ? (
+        <div>Loading...</div>
+      ) : (
+        <Modal
+          toggle={modal}
+          content={
+            <div className="overflow-y-visible">
+              <h1 className="text-center font-extrabold text-7xl">
+                {importProps.data.name}
+              </h1>
+              <div className="flex max-w-sm mx-auto text-center ">
+                {importProps.data.genres.map((item: string, n: number) => {
+                  return <h3 className="mx-auto">{item}</h3>;
+                })}
+              </div>
+              <h2 className="text-center">
+                {importProps.data.followers.total} followers
+              </h2>
+              <div className="w-9/12 mx-auto">
+                <h1 className="text-xl font-bold ml-36">Popular</h1>
+                {artist.tracks.map((item, i) => {
+                  if (i < 5) {
+                    return <Tracks props={artist.tracks[i]} modal={true} />;
+                  }
+                })}
+              </div>
+              <div className="flex">
+                {artist.albums.items.map((item, i) => {
+                  return (
+                    <div
+                      className="w-32 h-32 bg-center bg-contain"
+                      style={{
+                        backgroundImage: `url(${artist.albums.items[i].images[0].url})`,
+                      }}
+                    ></div>
+                  );
+                })}
+              </div>
               <button
                 className="absolute top-0 right-0 rounded-full bg-red-600 w-6 mr-1 mt-1"
                 onClick={(e) => {
@@ -83,10 +158,10 @@ const Artist = (props: PropsObj) => {
               >
                 X
               </button>
-            }
-          </div>
-        }
-      />
+            </div>
+          }
+        />
+      )}
     </div>
   );
 };

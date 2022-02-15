@@ -71,7 +71,7 @@ export const Index: NextPage = () => {
           console.log(data);
           const accessToken = data;
           if (accessToken.error) {
-            // window.location.assign("/?error");
+            window.location.assign("/?error");
             console.log("there has been an error");
           } else {
             getTheRest(data.access_token, data.expires_in);
@@ -190,7 +190,7 @@ export const Index: NextPage = () => {
               </div>
               {token.tracks.items.map((item: object, i: number) => {
                 if (i < 5) {
-                  return <Tracks props={token.tracks.items[i]} />;
+                  return <Tracks props={token.tracks.items[i]} modal={false} />;
                 }
               })}
             </div>
