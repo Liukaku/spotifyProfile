@@ -16,7 +16,8 @@
 }
 
 html,
-body {
+body,
+.modalWindow {
   overflow-x: hidden;
   background-color: #191414;
   font-family: "Spotify";

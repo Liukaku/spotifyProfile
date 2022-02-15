@@ -5,6 +5,11 @@ interface PropsObj {
   data: {
     images: Array<imgObj>;
     name: String;
+    genres: Array<string>;
+    followers: {
+      href: string | null;
+      total: number;
+    };
   };
   key: number;
 }
@@ -57,13 +62,29 @@ const Artist = (props: PropsObj) => {
       <Modal
         toggle={modal}
         content={
-          <button
-            onClick={(e) => {
-              toggleModal(false);
-            }}
-          >
-            {importProps.data.name}
-          </button>
+          <div>
+            <h1 className="text-center font-extrabold text-7xl">
+              {importProps.data.name}
+            </h1>
+            <div className="flex max-w-sm mx-auto text-center ">
+              {importProps.data.genres.map((item: string, n: number) => {
+                return <h3 className="mx-auto">{item}</h3>;
+              })}
+            </div>
+            <h2 className="text-center">
+              {importProps.data.followers.total} followers
+            </h2>
+            {
+              <button
+                className="absolute top-0 right-0 rounded-full bg-red-600 w-6 mr-1 mt-1"
+                onClick={(e) => {
+                  toggleModal(false);
+                }}
+              >
+                X
+              </button>
+            }
+          </div>
         }
       />
     </div>
