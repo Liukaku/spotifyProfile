@@ -178,8 +178,16 @@ export const Index: NextPage = () => {
             playlists={token.playlists.total}
             following={token.following.artists.total}
           />
-          <div className="w-full h-5/6 flex">
+          <div className="w-11/12 h-5/6 flex mx-auto">
             <div className="w-1/2 h-1/2">
+              <div className=" flex justify-between">
+                <h1 className="text-white font-extrabold ml-20 pt-2 mt-5">
+                  Top Songs
+                </h1>
+                <a className="text-white font-extrabold mr-64 mt-5 rounded-full border border-white border-solid pt-2 pb-2 px-4">
+                  See More
+                </a>
+              </div>
               {token.tracks.items.map((item: object, i: number) => {
                 if (i < 5) {
                   return <Tracks props={token.tracks.items[i]} />;
@@ -188,7 +196,7 @@ export const Index: NextPage = () => {
             </div>
             <div className="w-1/2 h-5/6 ">
               <div className=" flex justify-between">
-                <h1 className="text-white font-extrabold ml-10 pt-2 mt-5">
+                <h1 className="text-white font-extrabold ml-20 pt-2 mt-5">
                   Top Artists
                 </h1>
                 <a className="text-white font-extrabold mr-64 mt-5 rounded-full border border-white border-solid pt-2 pb-2 px-4">
