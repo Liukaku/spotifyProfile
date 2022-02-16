@@ -25,6 +25,9 @@ module.exports = {
       width: {
         hlf: "50vw",
       },
+      minWidth: {
+        alb: "20%",
+      },
     },
   },
   variants: {},

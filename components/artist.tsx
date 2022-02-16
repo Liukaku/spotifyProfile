@@ -23,7 +23,15 @@ interface imgObj {
 
 interface artistState {
   tracks: Array<TrackObj>;
-  albums: object;
+  albums: {
+    items: [
+      {
+        album_type: string;
+        name: string;
+        images: [{ url: string }];
+      }
+    ];
+  };
   loading: boolean;
 }
 
@@ -41,7 +49,15 @@ const Artist = (props: PropsObj) => {
         name: "",
       },
     ],
-    albums: {},
+    albums: {
+      items: [
+        {
+          album_type: "",
+          name: "",
+          images: [{ url: "" }],
+        },
+      ],
+    },
     loading: true,
   });
 
@@ -118,46 +134,54 @@ const Artist = (props: PropsObj) => {
         <Modal
           toggle={modal}
           content={
-            <div className="overflow-y-visible">
-              <h1 className="text-center font-extrabold text-7xl">
-                {importProps.data.name}
-              </h1>
-              <div className="flex max-w-sm mx-auto text-center ">
-                {importProps.data.genres.map((item: string, n: number) => {
-                  return <h3 className="mx-auto">{item}</h3>;
-                })}
+            <div className="">
+              <div className="sticky top-0 modalWindow">
+                <button
+                  className="absolute top-0 right-0 rounded-full bg-red-600 w-6 mr-1 mt-1"
+                  onClick={(e) => {
+                    toggleModal(false);
+                  }}
+                >
+                  X
+                </button>
+                <h1 className="text-center font-extrabold text-7xl">
+                  {importProps.data.name}
+                </h1>
+                <div className="flex max-w-sm mx-auto text-center ">
+                  {importProps.data.genres.map((item: string, n: number) => {
+                    return <h3 className="mx-auto">{item}</h3>;
+                  })}
+                </div>
+                <h2 className="text-center">
+                  {importProps.data.followers.total} followers
+                </h2>
               </div>
-              <h2 className="text-center">
-                {importProps.data.followers.total} followers
-              </h2>
               <div className="w-9/12 mx-auto">
-                <h1 className="text-xl font-bold ml-36">Popular</h1>
+                <h1 className="text-xl font-bold mt-3 ml-36">Popular</h1>
                 {artist.tracks.map((item, i) => {
                   if (i < 5) {
                     return <Tracks props={artist.tracks[i]} modal={true} />;
                   }
                 })}
               </div>
-              <div className="flex">
+              <h1>Albums</h1>
+              <div className="flex w-full overflow-auto whitespace-nowrap">
                 {artist.albums.items.map((item, i) => {
-                  return (
-                    <div
-                      className="w-32 h-32 bg-center bg-contain"
-                      style={{
-                        backgroundImage: `url(${artist.albums.items[i].images[0].url})`,
-                      }}
-                    ></div>
-                  );
+                  if (artist.albums.items[i].album_type === "album") {
+                    return (
+                      <div className="min-w-alb w-auto">
+                        <div
+                          className="w-full h-20 bg-no-repeat bg-center bg-contain"
+                          style={{
+                            backgroundImage: `url(${artist.albums.items[i].images[0].url})`,
+                          }}
+                        />
+                        <h1>{artist.albums.items[i].name}</h1>
+                      </div>
+                    );
+                  }
                 })}
               </div>
-              <button
-                className="absolute top-0 right-0 rounded-full bg-red-600 w-6 mr-1 mt-1"
-                onClick={(e) => {
-                  toggleModal(false);
-                }}
-              >
-                X
-              </button>
             </div>
           }
         />
