@@ -113,7 +113,7 @@ const Artist = (props: PropsObj) => {
         {importProps.data.name}
       </h1>
       {artist.loading === true ? (
-        <div>Loading...</div>
+        ""
       ) : (
         <Modal
           toggle={modal}

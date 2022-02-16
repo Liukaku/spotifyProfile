@@ -11,7 +11,7 @@ const Modal = (props) => {
     <div
       className={
         display
-          ? "absolute top-0 left-0 ml-72 mt-16 w-8/12 h-5/6  z-10 text-white rounded-md modalWindow border border-solid border-gray-900"
+          ? "absolute top-0 left-0 ml-72 mt-16 w-8/12 h-5/6  z-10 text-white rounded-md modalWindow  overflow-y-scroll border border-solid border-gray-900"
           : "hidden ml-32 mt-16 w-10/12 h-5/6  z-10"
       }
       id="modalWindow"

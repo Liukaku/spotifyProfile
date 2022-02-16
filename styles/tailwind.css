@@ -16,8 +16,7 @@
 }
 
 html,
-body,
-.modalWindow {
+body {
   overflow-x: hidden;
   overflow-y: hidden;
   background-color: #191414;
@@ -41,6 +40,11 @@ body,
 
 .spotifyBold {
   font-family: "SpotifyBold";
+}
+
+.modalWindow {
+  background-color: #191414;
+  font-family: "Spotify";
 }
 
 .gradient {

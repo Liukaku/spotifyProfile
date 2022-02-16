@@ -15,6 +15,7 @@ interface TheState {
   profile: any;
   following: any;
   playlists: any;
+  loading: boolean;
 }
 
 export const Index: NextPage = () => {
@@ -24,6 +25,7 @@ export const Index: NextPage = () => {
     profile: {},
     following: {},
     playlists: {},
+    loading: true,
   });
 
   const client = "db7d70beb5d14841b699b7df68b56a1c";
@@ -155,6 +157,7 @@ export const Index: NextPage = () => {
                           profile: profileRes,
                           following: followingRes,
                           playlists: playlistRes,
+                          loading: false,
                         });
                       });
                   });
@@ -163,7 +166,7 @@ export const Index: NextPage = () => {
       });
   };
 
-  if (Object.keys(token.music).length !== 0) {
+  if (token.loading === false) {
     return (
       <div className="w-100 h-screen w-screen flex">
         <Head>
