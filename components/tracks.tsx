@@ -60,15 +60,15 @@ const Tracks = (props: InitialProps) => {
         }
       >
         {!modal ? (
-          <div>
+          <div className=" w-4/5 ">
             <h1 className="mt-3 ml-5 font-bold text-white">{theTrack.name}</h1>
             <h2 className="mt-2 ml-5 font-medium text-gray-500">
               {theTrack.artists[0].name}
             </h2>
           </div>
         ) : (
-          <div className="">
-            <h1 className="mt-7 ml-5  font-bold text-white">{theTrack.name}</h1>
+          <div className=" w-4/5 ">
+            <h1 className="mt-7 ml-5 font-bold text-white">{theTrack.name}</h1>
           </div>
         )}
         <div>
