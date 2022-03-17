@@ -184,7 +184,11 @@ const Artist = (props: PropsObj) => {
                 </h1>
                 <div className="flex max-w-sm mx-auto text-center ">
                   {importProps.data.genres.map((item: string, n: number) => {
-                    return <h3 className="mx-auto">{item}</h3>;
+                    return (
+                      <h3 key={n} className="mx-auto">
+                        {item}
+                      </h3>
+                    );
                   })}
                 </div>
                 <h2 className="text-center">
