@@ -12,6 +12,7 @@ interface TrackObj {
   duration_ms: number;
   name: string;
   id: string;
+  popularity: number;
 }
 
 interface artistsObj {
@@ -21,6 +22,8 @@ interface artistsObj {
 interface TrackAlbum {
   artists: Array<object>;
   images: Array<TrackImages>;
+  name: string;
+  release_date: string;
 }
 
 interface TrackImages {
@@ -58,10 +61,8 @@ const Tracks = (props: InitialProps) => {
 
   const [showModal, toggleModal] = useState(false);
   const [modalLoaded, updateLoading] = useState(false);
-  const [modalDetails, updateModalDetails] = useState<TrackShapeObj | Object>(
-    {}
-  );
-  const [trackAnalysis, updateTrackAnalysis] = useState<Object>({});
+  const [modalDetails, updateModalDetails] = useState<TrackShapeObj | any>({});
+  const [trackAnalysis, updateTrackAnalysis] = useState<Object | any>({});
 
   useEffect(() => {
     if (Object.keys(modalDetails).length === 0 && showModal) {

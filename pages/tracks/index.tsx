@@ -16,7 +16,8 @@ interface TrackObj {
   artists: Array<artistsObj>;
   duration_ms: number;
   name: string;
-  id: "";
+  id: string;
+  popularity: number;
 }
 
 interface artistsObj {
@@ -26,6 +27,8 @@ interface artistsObj {
 interface TrackAlbum {
   artists: Array<object>;
   images: Array<TrackImages>;
+  name: string;
+  release_date: string;
 }
 
 interface TrackImages {
