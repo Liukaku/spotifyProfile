@@ -20,9 +20,11 @@ const Home: NextPage = () => {
   const client: string = "db7d70beb5d14841b699b7df68b56a1c";
   const secret: string = "1316d41696ed444f88a9365c755eb8f2";
   const redirect = () => {
-    document.location.href.includes("localhost")
-      ? "http://localhost:3000/callback"
-      : "https://spotify-profile-one.vercel.app/callback";
+    if (document.location.href.includes("localhost")) {
+      return "http://localhost:3000/callback";
+    } else {
+      return "https://spotify-profile-one.vercel.app/callback";
+    }
   };
   const scope: string =
     "user-read-private user-read-email user-read-playback-position user-top-read user-read-recently-played user-follow-read";
@@ -38,7 +40,7 @@ const Home: NextPage = () => {
     return text;
   };
 
-  const query = `response_type=code&client_id=${client}&scope=${scope}&redirect_uri=${redirect}&state=${generateRandomString(
+  const query = `response_type=code&client_id=${client}&scope=${scope}&redirect_uri=${redirect()}&state=${generateRandomString(
     16
   )}`;
 
