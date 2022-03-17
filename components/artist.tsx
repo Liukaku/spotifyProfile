@@ -15,6 +15,7 @@ interface PropsObj {
     id: string;
   };
   key: number;
+  pageView: boolean;
 }
 
 interface imgObj {
@@ -96,22 +97,36 @@ const Artist = (props: PropsObj) => {
 
   return (
     <div
-      className="h-1/12 w-10/12 flex  mt-10 ml-5"
+      className={
+        importProps.pageView
+          ? "h-1/12 w-2/12 flex  mt-10 ml-5 "
+          : "h-1/12 w-10/12 flex  mt-10 ml-5 "
+      }
       key={`album${importProps.key}`}
     >
       <div
         onClick={(e) => {
           toggleModal(true);
         }}
-        className="rounded-full w-20 h-20 bg-center bg-contain cursor-pointer"
+        className={
+          importProps.pageView
+            ? "rounded-full w-32 h-32 bg-center bg-contain cursor-pointer"
+            : "rounded-full w-20 h-20 bg-center bg-contain cursor-pointer"
+        }
         style={{ backgroundImage: `url(${importProps.data.images[0].url})` }}
         // src={importProps.data.images[0].url}
       >
-        <div className="w-full h-20 opacity-0 hover:opacity-100 transit ease-in-out duration-300">
+        <div
+          className={
+            importProps.pageView
+              ? "w-full h-32 opacity-0 hover:opacity-100 transit ease-in-out duration-300"
+              : "w-full h-20 opacity-0 hover:opacity-100 transit ease-in-out duration-300"
+          }
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="50"
-            height="50"
+            width={importProps.pageView ? "100" : "50"}
+            height={importProps.pageView ? "100" : "50"}
             viewBox="0 0 24 24"
             className="ml-4 mt-4"
           >
@@ -122,14 +137,18 @@ const Artist = (props: PropsObj) => {
           </svg>
         </div>
       </div>
-      <h1
-        onClick={(e) => {
-          toggleModal(true);
-        }}
-        className="mt-7 ml-5 font-bold text-white cursor-pointer hover:underline"
-      >
-        {importProps.data.name}
-      </h1>
+      {importProps.pageView ? (
+        ""
+      ) : (
+        <h1
+          onClick={(e) => {
+            toggleModal(true);
+          }}
+          className="mt-7 ml-5 font-bold text-white cursor-pointer hover:underline"
+        >
+          {importProps.data.name}
+        </h1>
+      )}
       {artist.loading === true ? (
         ""
       ) : (
@@ -139,7 +158,7 @@ const Artist = (props: PropsObj) => {
             <div className="">
               <div className="sticky top-0 modalWindow">
                 <button
-                  className="absolute top-0 right-0 rounded-full hover:bg-red-900  w-6 mr-1  mt-1 border border-solid border-red-900"
+                  className="absolute top-0 right-0 rounded-full   w-6 mr-1  mt-1 "
                   onClick={(e) => {
                     toggleModal(false);
                   }}

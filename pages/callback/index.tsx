@@ -219,7 +219,13 @@ export const Index: NextPage = () => {
               {token.music.items.map((item: object, n: number): JSX.Element => {
                 if (n < 5) {
                   //TODO: create a component for this to display within so they can each have their own modal
-                  return <Artist data={token.music.items[n]} key={n} />;
+                  return (
+                    <Artist
+                      data={token.music.items[n]}
+                      key={n}
+                      pageView={false}
+                    />
+                  );
                 }
               })}
             </div>
