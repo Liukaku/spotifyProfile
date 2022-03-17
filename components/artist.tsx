@@ -49,6 +49,7 @@ const Artist = (props: PropsObj) => {
         duration_ms: 0,
         artists: [],
         name: "",
+        id: "",
       },
     ],
     albums: {

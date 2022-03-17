@@ -16,6 +16,7 @@ interface TrackObj {
   artists: Array<artistsObj>;
   duration_ms: number;
   name: string;
+  id: "";
 }
 
 interface artistsObj {
@@ -108,7 +109,7 @@ const TracksPage: NextPage = () => {
   return (
     <div className="w-100 h-screen w-screen flex">
       <SideBar />
-      <div className="w-full">
+      <div className="w-full gradient">
         <div className="w-4/5 mt-10 text-white text-xl font-black flex mx-auto justify-between">
           <h1>Top Tracks</h1>
           <div className="flex">
