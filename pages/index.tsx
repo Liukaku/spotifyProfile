@@ -4,6 +4,7 @@ import Logo from "../imgs/Spotify_Icon_RGB_White.png";
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
+import { useRouter } from "next/router";
 
 interface TheState {
   errors: boolean;
@@ -17,13 +18,18 @@ const Home: NextPage = () => {
     }
   });
 
+  const router = useRouter();
+
   const client: string = "db7d70beb5d14841b699b7df68b56a1c";
   const secret: string = "1316d41696ed444f88a9365c755eb8f2";
   const redirect = () => {
-    if (document.URL.includes("localhost")) {
-      return "http://localhost:3000/callback";
-    } else {
-      return "https://spotify-profile-one.vercel.app/callback";
+    if (document) {
+      console.log(document.location.href);
+      if (document.location.href.includes("localhost")) {
+        return "http://localhost:3000/callback";
+      } else {
+        return "https://spotify-profile-one.vercel.app/callback";
+      }
     }
   };
   const scope: string =
