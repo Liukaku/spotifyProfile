@@ -16,6 +16,8 @@ const Home: NextPage = () => {
   useEffect(() => {
     if (document.location.href.includes("localhost")) {
       updateURL("http://localhost:3000/callback");
+    } else if (document.location.href.includes("spotify-netlify")) {
+      updateURL("https://spotify-netlify.netlify.app/callback");
     } else {
       updateURL("https://spotify-profile-one.vercel.app/callback");
     }
