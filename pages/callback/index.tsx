@@ -53,13 +53,25 @@ export const Index: NextPage = () => {
       const theAuth = localStorage.getItem("Token");
       getTheRest(theAuth, expiresIn);
     } else {
+      let redirectURL = "";
+
+      if (document.location.href.includes("localhost")) {
+        redirectURL = "http://localhost:3000/callback";
+      } else if (document.location.href.includes("spotify-netlify")) {
+        redirectURL = "https://spotify-netlify.netlify.app/callback";
+      } else if (document.location.href.includes("herokuapp")) {
+        redirectURL = "https://spotify-profile-one.herokuapp.com/callback";
+      } else if (document.location.href.includes("vercel")) {
+        redirectURL = "https://spotify-profile-one.vercel.app/callback";
+      }
+
       const accessCode: string = window.location.search
         .split("&state")[0]
         .replace("?code=", "");
 
       fetch("https://accounts.spotify.com/api/token", {
         method: "post",
-        body: `grant_type=authorization_code&code=${accessCode}&redirect_uri=http://localhost:3000/callback`,
+        body: `grant_type=authorization_code&code=${accessCode}&redirect_uri=${redirectURL}`,
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
           Authorization: `Basic ${Buffer.from(`${client}:${secret}`).toString(
