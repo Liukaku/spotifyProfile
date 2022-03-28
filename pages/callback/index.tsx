@@ -204,7 +204,10 @@ export const Index: NextPage = () => {
                 <h1 className="text-white font-extrabold ml-20 pt-2 mt-5">
                   Top Songs
                 </h1>
-                <a className="text-white font-extrabold mr-64 mt-5 rounded-full border border-white border-solid pt-2 pb-2 px-4">
+                <a
+                  href="/tracks"
+                  className="text-white font-extrabold mr-64 mt-5 rounded-full border border-white border-solid pt-2 pb-2 px-4 hover:bg-white cursor-pointer duration-300 hover:text-black"
+                >
                   See More
                 </a>
               </div>
@@ -219,7 +222,10 @@ export const Index: NextPage = () => {
                 <h1 className="text-white font-extrabold ml-20 pt-2 mt-5">
                   Top Artists
                 </h1>
-                <a className="text-white font-extrabold mr-64 mt-5 rounded-full border border-white border-solid pt-2 pb-2 px-4">
+                <a
+                  href="/artists"
+                  className="text-white font-extrabold mr-64 mt-5 rounded-full border border-white border-solid pt-2 pb-2 px-4 hover:bg-white cursor-pointer duration-300 hover:text-black"
+                >
                   See More
                 </a>
               </div>
