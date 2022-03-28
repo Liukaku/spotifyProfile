@@ -183,11 +183,6 @@ export const Index: NextPage = () => {
       });
   };
 
-  const sidebarLink = (linkTo: string) => {
-    console.log(linkTo);
-    Router.push(`/${linkTo}`);
-  };
-
   if (token.loading === false) {
     return (
       <div className="w-100 h-screen w-screen flex">
@@ -203,7 +198,7 @@ export const Index: NextPage = () => {
             playlists={token.playlists.total}
             following={token.following.artists.total}
           />
-          <div className="w-11/12 h-5/6 flex mx-auto">
+          <div className="w-11/12 h-5/6 flex mx-auto pl-20">
             <div className="w-1/2 h-1/2">
               <div className=" flex justify-between">
                 <h1 className="text-white font-extrabold ml-20 pt-2 mt-5">
