@@ -72,7 +72,6 @@ const Tracks = (props: InitialProps) => {
           localStorage.clear();
           window.location.assign("/?error");
         } else {
-          console.log(res);
           updateModalDetails(res);
           getTrackAnalysis().then((response) => {
             if (response.error) {
@@ -244,41 +243,53 @@ const Tracks = (props: InitialProps) => {
                   </div>
                   <div className="w-full flex justify-evenly mt-3">
                     <div className="w-1/5">
-                      <h2>
+                      <h2 className="text-xl spotifyBold">
                         {mins}:{sec}
                       </h2>
                       <h3>Length</h3>
                     </div>
                     <div className="w-1/5">
-                      <h2>{pitchClass[modalDetails.key]}</h2>
+                      <h2 className="text-xl spotifyBold">
+                        {pitchClass[modalDetails.key]}
+                      </h2>
                       <h3>Key</h3>
                     </div>
                     <div className="w-1/5">
-                      <h2>
+                      <h2 className="text-xl spotifyBold">
                         {(trackAnalysis.track.mode = 1 ? "Major" : "Minor")}
                       </h2>
                       <h3>Modality</h3>
                     </div>
                     <div className="w-1/5">
-                      <h2>{trackAnalysis.beats.length}</h2>
+                      <h2 className="text-xl spotifyBold">
+                        {trackAnalysis.beats.length}
+                      </h2>
                       <h3>Beats</h3>
                     </div>
                   </div>
                   <div className="w-full flex justify-evenly mt-3">
                     <div className="w-1/5">
-                      <h2>{props.props.popularity}%</h2>
+                      <h2 className="text-xl spotifyBold">
+                        {props.props.popularity}%
+                      </h2>
                       <h3>Popularity</h3>
                     </div>
                     <div className="w-1/5">
-                      <h2>{modalDetails.tempo}</h2>
+                      <h2 className="text-xl spotifyBold">
+                        {modalDetails.tempo}
+                      </h2>
                       <h3>BPM</h3>
                     </div>
                     <div className="w-1/5">
-                      <h2>{trackAnalysis.sections.length}</h2>
+                      <h2 className="text-xl spotifyBold">
+                        {trackAnalysis.sections.length}
+                      </h2>
                       <h3>Sections</h3>
                     </div>
                     <div className="w-1/5">
-                      <h2>{trackAnalysis.track.time_signature}</h2>
+                      <h2 className="text-xl spotifyBold">
+                        {trackAnalysis.track.time_signature}
+                      </h2>
                       <h3>Time Signature</h3>
                     </div>
                   </div>

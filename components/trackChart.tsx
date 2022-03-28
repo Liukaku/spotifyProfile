@@ -23,6 +23,7 @@ interface TrackShapeObj {
 }
 
 export const TrackChart = (data: TrackShapeObj | any) => {
+  const key = new Date().getTime();
   const props = data.data;
 
   const properties = [
@@ -41,12 +42,9 @@ export const TrackChart = (data: TrackShapeObj | any) => {
 
   useEffect(() => {
     const createChart = (dataset) => {
-      const ctx = document.getElementById("chart");
+      const ctx = document.getElementById(`chart${key}`);
       const labels = Object.keys(dataset);
       const data = Object.values(dataset);
-
-      console.log(labels);
-      console.log(data);
 
       new Chart(ctx, {
         type: "bar",
@@ -135,7 +133,6 @@ export const TrackChart = (data: TrackShapeObj | any) => {
         valence: props.valence,
       };
 
-      console.log(dataSet);
       createChart(dataSet);
     };
 
@@ -143,7 +140,7 @@ export const TrackChart = (data: TrackShapeObj | any) => {
   }, [props]);
   return (
     <div className="w-3/5 mx-auto">
-      <canvas id="chart" width="100" height="100"></canvas>
+      <canvas id={`chart${key}`} width="100" height="100"></canvas>
     </div>
   );
 };
