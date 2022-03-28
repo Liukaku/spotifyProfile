@@ -86,8 +86,6 @@ const Artist = (props: PropsObj) => {
   useEffect(() => {
     getTracks("top-tracks").then((res) => {
       getTracks("albums").then((secRes) => {
-        console.log(res.tracks);
-        console.log(secRes);
         updateArtist({
           albums: secRes,
           tracks: res.tracks,

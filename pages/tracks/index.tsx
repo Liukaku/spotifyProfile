@@ -89,11 +89,6 @@ const TracksPage: NextPage = () => {
     }
   };
 
-  const sidebarLink = (linkTo: string) => {
-    console.log(linkTo);
-    Router.push(`/${linkTo}`);
-  };
-
   const selection = [
     {
       key: 0,

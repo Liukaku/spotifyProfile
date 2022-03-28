@@ -21,8 +21,6 @@ interface ProfileImages {
 
 const Profile = (props: any) => {
   const stateProps: Props = props.props;
-  console.log(props);
-  console.log(stateProps);
   return (
     <div className="w-4/5 mx-auto mb-5 mt-5">
       <img

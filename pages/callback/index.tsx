@@ -38,17 +38,13 @@ export const Index: NextPage = () => {
     if (parseInt(localStorage.getItem("Expires")) > new Date().getTime()) {
       useStorage = true;
     }
-    console.log(parseInt(localStorage.getItem("Expires")));
-    console.log(localStorage.getItem("Token"));
     if (Object.keys(token.music).length === 0) {
       getEverything(useStorage);
     }
   }, []);
 
   const getEverything = (useStorage: boolean) => {
-    console.log(useStorage);
     if (useStorage) {
-      console.log("using stored token");
       const expiresIn = parseInt(localStorage.getItem("Expires"));
       const theAuth = localStorage.getItem("Token");
       getTheRest(theAuth, expiresIn);
@@ -84,11 +80,9 @@ export const Index: NextPage = () => {
           return res.json();
         })
         .then((data) => {
-          console.log(data);
           const accessToken = data;
           if (accessToken.error) {
             window.location.assign("/?error");
-            console.log("there has been an error");
           } else {
             getTheRest(data.access_token, data.expires_in);
           }
