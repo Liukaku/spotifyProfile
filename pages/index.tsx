@@ -30,8 +30,8 @@ const Home: NextPage = () => {
 
   const router = useRouter();
 
-  const client: string = "db7d70beb5d14841b699b7df68b56a1c";
-  const secret: string = "1316d41696ed444f88a9365c755eb8f2";
+  const client: string = process.env.CLIENT_ID;
+  const secret: string = process.env.CLIENT_SECRET;
   const scope: string =
     "user-read-private user-read-email user-read-playback-position user-top-read user-read-recently-played user-follow-read";
 
