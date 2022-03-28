@@ -203,7 +203,7 @@ const Tracks = (props: InitialProps) => {
             <div className="">
               <div className="sticky top-0 modalWindow">
                 <button
-                  className="absolute top-0 right-0 rounded-full   w-6 mr-1  mt-1 "
+                  className="top-1 right-0 rounded-full float-right sticky  w-6 mr-1  mt-1 "
                   onClick={(e) => {
                     toggleModal(false);
                   }}
