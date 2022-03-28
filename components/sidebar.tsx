@@ -8,14 +8,14 @@ const SideBar: NextComponentType = () => {
   };
 
   return (
-    <div className="w-1/8 h-full bg-black text-white table fixed">
-      <div className=" top-0 bg-black">
-        <div className="table-cell align-middle h-screen">
+    <div className="md:w-20 md:h-full w-full bottom-0 z-10 h-10 bg-black text-white table fixed">
+      <div className="top-0 bg-black md:m-0 md:p-0">
+        <div className="md:table-cell flex align-middle h-full md:h-screen">
           <div
             onClick={() => sidebarLink("home")}
-            className="h-28 table mx-auto w-full text-center hover:bg-zinc-700 hover:border-l-green-700 border-l-black border-l-2 duration-300 cursor-pointer"
+            className="h-28 table mx-auto md:w-full w-4/12 text-center hover:bg-zinc-700 md:hover:border-l-green-700 md:border-l-black md:border-l-2 md:border-t-0 hover:border-t-green-700 border-t-black border-t-2 duration-300 cursor-pointer"
           >
-            <div className="table-cell align-middle">
+            <div className="table-cell mx-auto align-middle">
               <svg
                 role="img"
                 height="24"
@@ -31,9 +31,9 @@ const SideBar: NextComponentType = () => {
           </div>
           <div
             onClick={() => sidebarLink("artists")}
-            className="h-28 table  mx-auto w-full text-center hover:bg-zinc-700 hover:border-l-green-700 border-l-black border-l-2 duration-300 cursor-pointer"
+            className="h-28 table mx-auto md:w-full w-4/12 text-center hover:bg-zinc-700 md:hover:border-l-green-700 md:border-l-black md:border-l-2 md:border-t-0 hover:border-t-green-700 border-t-black border-t-2 duration-300 cursor-pointer"
           >
-            <div className="table-cell align-middle">
+            <div className="table-cell mx-auto align-middle">
               <img
                 className="mx-auto table-cell align-middle"
                 src="https://img.icons8.com/ios-glyphs/30/ffffff/stack-of-photos--v1.png"
@@ -45,9 +45,9 @@ const SideBar: NextComponentType = () => {
           </div>
           <div
             onClick={() => sidebarLink("tracks")}
-            className="h-28 table  mx-auto w-full text-center hover:bg-zinc-700 hover:border-l-green-700 border-l-black border-l-2 duration-300 cursor-pointer"
+            className="h-28 table mx-auto md:w-full w-4/12 text-center hover:bg-zinc-700 md:hover:border-l-green-700 md:border-l-black md:border-l-2 md:border-t-0 hover:border-t-green-700 border-t-black border-t-2 duration-300 cursor-pointer"
           >
-            <div className="table-cell align-middle">
+            <div className="table-cell mx-auto align-middle">
               <svg
                 className="mx-auto table-cell align-middle"
                 xmlns="http://www.w3.org/2000/svg"
