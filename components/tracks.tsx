@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Modal from "./modal";
+import TrackChart from "./trackChart";
 
 interface InitialProps {
   props: TrackObj;
@@ -282,6 +283,7 @@ const Tracks = (props: InitialProps) => {
                     </div>
                   </div>
                 </div>
+                <TrackChart data={modalDetails} />
               </div>
             </div>
           ) : (
