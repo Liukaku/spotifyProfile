@@ -241,8 +241,8 @@ const Tracks = (props: InitialProps) => {
                       </h1>
                     </div>
                   </div>
-                  <div className="w-full flex">
-                    <div className="w-1/4">
+                  <div className="w-full flex justify-evenly mt-3">
+                    <div className="w-1/5">
                       <h2>
                         {mins}:{sec}
                       </h2>
@@ -263,8 +263,8 @@ const Tracks = (props: InitialProps) => {
                       <h3>Beats</h3>
                     </div>
                   </div>
-                  <div className="w-full flex">
-                    <div className="w-1/4">
+                  <div className="w-full flex justify-evenly mt-3">
+                    <div className="w-1/5">
                       <h2>{props.props.popularity}%</h2>
                       <h3>Popularity</h3>
                     </div>
