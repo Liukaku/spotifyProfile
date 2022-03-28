@@ -221,7 +221,7 @@ const Tracks = (props: InitialProps) => {
                   </svg>
                 </button>
                 <div className="text-center">
-                  <h1>{theTrack.name}</h1>
+                  <h1 className="spotifyBold text-2xl">{theTrack.name}</h1>
                   <div className="flex w-8/12 mx-auto">
                     <div
                       className={"w-40 h-40 bg-center bg-contain"}
@@ -230,13 +230,13 @@ const Tracks = (props: InitialProps) => {
                       }}
                     />
                     <div className="w-60">
-                      <h1 className="w-80 text-left ml-5">
+                      <h1 className="w-80 text-left ml-5 spotifyBold text-lg">
                         {props.props.artists[0].name}
                       </h1>
-                      <h1 className="w-80 text-left ml-5">
+                      <h1 className="w-80 text-left ml-5 text-lg">
                         {props.props.album.name}
                       </h1>
-                      <h1 className="w-80 text-left ml-5">
+                      <h1 className="w-80 text-left ml-5 text-zinc-500">
                         {props.props.album.release_date}
                       </h1>
                     </div>
