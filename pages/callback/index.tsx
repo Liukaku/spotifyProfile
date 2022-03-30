@@ -194,7 +194,7 @@ export const Index: NextPage = () => {
             following={token.following.artists.total}
           />
           <div className="w-11/12 flex-wrap md:h-5/6 h-full flex mx-auto pl-0 md:pl-20">
-            <div className="md:w-1/2 w-full md:h-1/2 h-full">
+            <div className="md:w-1/2 w-full md:h-1/2 h-auto">
               <div className=" flex justify-between">
                 <h1 className="text-white font-extrabold ml-20 pt-2 mt-5">
                   Top Songs
@@ -211,7 +211,7 @@ export const Index: NextPage = () => {
                 }
               })}
             </div>
-            <div className="md:w-1/2 w-full md:h-1/2 h-full ">
+            <div className="md:w-1/2 w-full md:h-1/2 h-auto md:mt-0 mt-10 ">
               <div className=" flex justify-between">
                 <h1 className="text-white font-extrabold ml-20 pt-2 mt-5">
                   Top Artists

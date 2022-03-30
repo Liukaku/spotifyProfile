@@ -32,7 +32,7 @@ const Profile = (props: any) => {
       <h1 className="text-white text-4xl text-center">
         {stateProps.display_name}
       </h1>
-      <div className="w-6/12   spotifyGreen flex mx-auto justify-around">
+      <div className="md:w-6/12 w-full spotifyGreen flex mx-auto justify-around">
         <div className="flex flex-wrap w-4/12 text-center">
           <h1 className="w-full">{stateProps.followers.total}</h1>
           <h1 className="w-full text-white">Followers</h1>
