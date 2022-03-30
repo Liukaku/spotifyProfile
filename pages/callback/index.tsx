@@ -211,7 +211,7 @@ export const Index: NextPage = () => {
                 }
               })}
             </div>
-            <div className="md:w-1/2 w-full md:h-1/2 h-auto md:mt-0 mt-10 ">
+            <div className="md:w-1/2 w-full md:h-1/2 h-auto md:mt-0 mt-10 md:pb-0 pb-36">
               <div className=" flex justify-between">
                 <h1 className="text-white font-extrabold ml-20 pt-2 mt-5">
                   Top Artists
