@@ -187,20 +187,20 @@ export const Index: NextPage = () => {
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <SideBar />
-        <div className="gradient w-full h-full pl-10">
+        <div className="gradient w-full h-full pl-0 md:pl-10">
           <Profile
             props={token.profile}
             playlists={token.playlists.total}
             following={token.following.artists.total}
           />
-          <div className="w-11/12 h-5/6 flex mx-auto pl-20">
-            <div className="w-1/2 h-1/2">
+          <div className="w-11/12 flex-wrap md:h-5/6 h-full flex mx-auto pl-0 md:pl-20">
+            <div className="md:w-1/2 w-full md:h-1/2 h-full">
               <div className=" flex justify-between">
                 <h1 className="text-white font-extrabold ml-20 pt-2 mt-5">
                   Top Songs
                 </h1>
                 <Link href="/tracks">
-                  <a className="text-white font-extrabold mr-64 mt-5 rounded-full border border-white border-solid pt-2 pb-2 px-4 hover:bg-white cursor-pointer duration-300 hover:text-black">
+                  <a className="text-white font-extrabold mr-5 md:mr-64 mt-5 rounded-full border border-white border-solid pt-2 pb-2 px-4 hover:bg-white cursor-pointer duration-300 hover:text-black">
                     See More
                   </a>
                 </Link>
@@ -211,13 +211,13 @@ export const Index: NextPage = () => {
                 }
               })}
             </div>
-            <div className="w-1/2 h-5/6 ">
+            <div className="md:w-1/2 w-full md:h-1/2 h-full ">
               <div className=" flex justify-between">
                 <h1 className="text-white font-extrabold ml-20 pt-2 mt-5">
                   Top Artists
                 </h1>
                 <Link href="/artists">
-                  <a className="text-white font-extrabold mr-64 mt-5 rounded-full border border-white border-solid pt-2 pb-2 px-4 hover:bg-white cursor-pointer duration-300 hover:text-black">
+                  <a className="text-white font-extrabold mr-5 md:mr-64 mt-5 rounded-full border border-white border-solid pt-2 pb-2 px-4 hover:bg-white cursor-pointer duration-300 hover:text-black">
                     See More
                   </a>
                 </Link>
