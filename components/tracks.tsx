@@ -224,21 +224,23 @@ const Tracks = (props: InitialProps) => {
                 </button>
                 <div className="text-center">
                   <h1 className="spotifyBold text-2xl mb-5">{theTrack.name}</h1>
-                  <div className="flex w-8/12 mx-auto">
+                  <div className="md:flex table-row md:w-8/12 w-10/12 mx-auto">
                     <div
-                      className={"w-40 h-40 bg-center bg-contain"}
+                      className={
+                        "md:w-40 table-cell w-52 h-40 bg-no-repeat bg-center bg-contain"
+                      }
                       style={{
                         backgroundImage: `url(${theTrack.album.images[0].url})`,
                       }}
                     />
-                    <div className="w-60">
-                      <h1 className="w-80 text-left ml-5 spotifyBold text-lg">
+                    <div className="w-60 table-cell align-middle">
+                      <h1 className="md:w-80 w-4/5 text-left ml-5 spotifyBold text-lg">
                         {props.props.artists[0].name}
                       </h1>
-                      <h1 className="w-80 text-left ml-5 text-lg">
+                      <h1 className="md:w-80 w-4/5 text-left ml-5 text-lg">
                         {props.props.album.name}
                       </h1>
-                      <h1 className="w-80 text-left ml-5 text-zinc-500">
+                      <h1 className="md:w-80 w-4/5 text-left ml-5 text-zinc-500">
                         {props.props.album.release_date}
                       </h1>
                     </div>
