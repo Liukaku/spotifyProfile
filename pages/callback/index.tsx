@@ -10,6 +10,7 @@ import Profile from "../../components/profile";
 import Tracks from "../../components/tracks";
 import SideBar from "../../components/sidebar";
 import Router from "next/router";
+import Link from "next/link";
 
 interface TheState {
   music: any;
@@ -198,12 +199,11 @@ export const Index: NextPage = () => {
                 <h1 className="text-white font-extrabold ml-20 pt-2 mt-5">
                   Top Songs
                 </h1>
-                <a
-                  href="/tracks"
-                  className="text-white font-extrabold mr-64 mt-5 rounded-full border border-white border-solid pt-2 pb-2 px-4 hover:bg-white cursor-pointer duration-300 hover:text-black"
-                >
-                  See More
-                </a>
+                <Link href="/tracks">
+                  <a className="text-white font-extrabold mr-64 mt-5 rounded-full border border-white border-solid pt-2 pb-2 px-4 hover:bg-white cursor-pointer duration-300 hover:text-black">
+                    See More
+                  </a>
+                </Link>
               </div>
               {token.tracks.items.map((item: object, i: number) => {
                 if (i < 5) {
@@ -216,12 +216,11 @@ export const Index: NextPage = () => {
                 <h1 className="text-white font-extrabold ml-20 pt-2 mt-5">
                   Top Artists
                 </h1>
-                <a
-                  href="/artists"
-                  className="text-white font-extrabold mr-64 mt-5 rounded-full border border-white border-solid pt-2 pb-2 px-4 hover:bg-white cursor-pointer duration-300 hover:text-black"
-                >
-                  See More
-                </a>
+                <Link href="/artists">
+                  <a className="text-white font-extrabold mr-64 mt-5 rounded-full border border-white border-solid pt-2 pb-2 px-4 hover:bg-white cursor-pointer duration-300 hover:text-black">
+                    See More
+                  </a>
+                </Link>
               </div>
               {token.music.items.map((item: object, n: number): JSX.Element => {
                 if (n < 5) {
