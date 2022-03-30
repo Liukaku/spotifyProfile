@@ -156,7 +156,7 @@ const Tracks = (props: InitialProps) => {
     <div
       className={
         !modal
-          ? "w-full flex flex-wrap mt-10 ml-5"
+          ? "w-full flex flex-wrap mt-10 md:ml-5 ml-0"
           : "w-9/12 flex flex-wrap mt-10 mx-auto"
       }
     >
@@ -174,7 +174,7 @@ const Tracks = (props: InitialProps) => {
       <div
         className={
           !modal
-            ? "w-7/12 flex flex-wrap justify-between"
+            ? "md:w-7/12 w-9/12 flex flex-wrap justify-between"
             : "w-9/12 flex flex-wrap justify-between"
         }
       >
