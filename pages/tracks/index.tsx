@@ -133,7 +133,7 @@ const TracksPage: NextPage = () => {
             })}
           </div>
         </div>
-        <div className="w-2/5 pl-20 mx-auto">
+        <div className="md:w-2/5 w-11/12 md:pl-20 mx-auto">
           {trackState.items.map((track: TrackObj, i: number) => {
             return <Tracks key={i} props={track} modal={false} />;
           })}
