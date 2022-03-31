@@ -101,7 +101,7 @@ const Artist = (props: PropsObj) => {
     <div
       className={
         importProps.pageView
-          ? "h-1/12 w-2/12 flex  mt-10 ml-5 "
+          ? "h-1/12 md:w-2/12 w-2/6 flex  mt-10 md:ml-5 "
           : "h-1/12 w-10/12 flex  mt-10 ml-5 "
       }
       key={`album${importProps.key}`}
@@ -112,7 +112,7 @@ const Artist = (props: PropsObj) => {
         }}
         className={
           importProps.pageView
-            ? "rounded-full w-32 h-32 bg-center bg-contain cursor-pointer"
+            ? "rounded-full md:w-32 w-28 h-28 md:h-32 bg-center bg-contain cursor-pointer"
             : "rounded-full w-20 h-20 bg-center bg-contain cursor-pointer"
         }
         style={{ backgroundImage: `url(${importProps.data.images[0].url})` }}
