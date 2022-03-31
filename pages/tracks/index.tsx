@@ -108,19 +108,23 @@ const TracksPage: NextPage = () => {
     <div className="w-100 h-screen w-screen flex">
       <SideBar />
       <div className="w-full gradient">
-        <div className="w-4/5 mt-10 text-white text-xl font-black flex mx-auto justify-between">
+        <div className="md:w-4/5 w-11/12 mt-10 text-white text-xl font-black flex mx-auto justify-between">
           <h1>Top Tracks</h1>
-          <div className="flex">
+          <div className="flex text-right md:justify-end justify-between">
             {selection.map((option, n) => {
               if (option.key === selected) {
-                return <h1 className="underline  mr-2">{option.value}</h1>;
+                return (
+                  <h1 className="underline md:mr-2 mr-0 md:w-auto w-1/4">
+                    {option.value}
+                  </h1>
+                );
               } else {
                 return (
                   <h1
                     onClick={() => {
                       updateSelected(option.key);
                     }}
-                    className="cursor-pointer mr-2 text-gray-400"
+                    className="cursor-pointer md:mr-2 mr-0 md:w-auto w-1/4 text-gray-400"
                   >
                     {option.value}
                   </h1>
