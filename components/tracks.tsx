@@ -157,7 +157,7 @@ const Tracks = (props: InitialProps) => {
       className={
         !modal
           ? "w-full flex flex-wrap mt-10 md:ml-5 ml-0"
-          : "w-9/12 flex flex-wrap mt-10 mx-auto"
+          : "md:w-9/12 w-full flex flex-wrap mt-10 mx-auto"
       }
     >
       <div
@@ -167,7 +167,7 @@ const Tracks = (props: InitialProps) => {
         className={
           !modal
             ? "w-20 h-20 bg-center bg-contain cursor-pointer"
-            : "w-20 h-20 bg-center bg-contain"
+            : "w-20 h-20 bg-center md:ml-0 ml-5 bg-contain"
         }
         style={{ backgroundImage: `url(${theTrack.album.images[0].url})` }}
       />
@@ -175,7 +175,7 @@ const Tracks = (props: InitialProps) => {
         className={
           !modal
             ? "md:w-7/12 w-9/12 flex flex-wrap justify-between"
-            : "w-9/12 flex flex-wrap justify-between"
+            : "md:w-9/12 w-7/12 md:ml-0 ml-1 flex flex-wrap justify-between"
         }
       >
         {!modal ? (
@@ -188,11 +188,13 @@ const Tracks = (props: InitialProps) => {
             </h2>
           </div>
         ) : (
-          <div className=" w-4/5 ">
-            <h1 className="mt-7 ml-5 font-bold text-white">{theTrack.name}</h1>
+          <div className="w-4/5 ">
+            <h1 className="md:mt-7 md:ml-5 font-bold text-white">
+              {theTrack.name}
+            </h1>
           </div>
         )}
-        <div>
+        <div className="w-1/5">
           <h2 className="md:ml-5 ml-0 mt-5 font-medium text-gray-500">
             {mins}:{sec}
           </h2>

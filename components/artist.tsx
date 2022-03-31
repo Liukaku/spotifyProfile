@@ -193,7 +193,7 @@ const Artist = (props: PropsObj) => {
                   {importProps.data.followers.total} followers
                 </h2>
               </div>
-              <div className="w-9/12 mx-auto">
+              <div className="md:w-9/12 w-11/12 mx-auto">
                 <h1 className="text-xl font-bold mt-3 ml-36">Popular</h1>
                 {artist.tracks.map((item, i) => {
                   if (i < 5) {
