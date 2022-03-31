@@ -223,7 +223,9 @@ const Tracks = (props: InitialProps) => {
                   </svg>
                 </button>
                 <div className="text-center">
-                  <h1 className="spotifyBold text-2xl mb-5">{theTrack.name}</h1>
+                  <h1 className="spotifyBold text-2xl mb-5 md:pt-0 pt-5 w-11/12 mx-auto">
+                    {theTrack.name}
+                  </h1>
                   <div className="md:flex table-row md:w-8/12 w-10/12 mx-auto">
                     <div
                       className={

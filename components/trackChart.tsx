@@ -139,7 +139,7 @@ export const TrackChart = (data: TrackShapeObj | any) => {
     parseData();
   }, [props]);
   return (
-    <div className="w-3/5 mx-auto">
+    <div className="md:w-3/5 w-full mx-auto">
       <canvas id={`chart${key}`} width="100" height="100"></canvas>
     </div>
   );
