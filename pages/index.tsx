@@ -20,6 +20,8 @@ const Home: NextPage = () => {
       updateURL("https://spotify-netlify.netlify.app/callback");
     } else if (document.location.href.includes("herokuapp")) {
       updateURL("https://spotify-profile-one.herokuapp.com/callback");
+    } else if (document.location.href.includes("mattstarkey")) {
+      updateURL("https://spotify.mattstarkey.dev/callback");
     } else {
       updateURL("https://spotify-profile-one.vercel.app/callback");
     }

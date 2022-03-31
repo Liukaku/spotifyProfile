@@ -60,6 +60,8 @@ export const Index: NextPage = () => {
         redirectURL = "https://spotify-profile-one.herokuapp.com/callback";
       } else if (document.location.href.includes("vercel")) {
         redirectURL = "https://spotify-profile-one.vercel.app/callback";
+      } else if (document.location.href.includes("mattstarkey")) {
+        redirectURL = "https://spotify.mattstarkey.dev/callback";
       }
 
       const accessCode: string = window.location.search
