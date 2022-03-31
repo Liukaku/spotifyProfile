@@ -121,7 +121,7 @@ const ArtistsPage: NextPage = () => {
             })}
           </div>
         </div>
-        <div className="w-4/5 flex flex-wrap pl-20 mx-auto">
+        <div className="md:w-4/5 w-11/12 flex flex-wrap md:pl-20 mx-auto">
           {artistState.items.map((artist: ArtistsObj | any, i: number) => {
             return <Artist data={artist} key={i} pageView={true} />;
           })}
