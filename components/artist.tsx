@@ -177,7 +177,7 @@ const Artist = (props: PropsObj) => {
                     <path d="M 7.71875 6.28125 L 6.28125 7.71875 L 23.5625 25 L 6.28125 42.28125 L 7.71875 43.71875 L 25 26.4375 L 42.28125 43.71875 L 43.71875 42.28125 L 26.4375 25 L 43.71875 7.71875 L 42.28125 6.28125 L 25 23.5625 Z"></path>
                   </svg>
                 </button>
-                <h1 className="text-center font-extrabold text-7xl">
+                <h1 className="text-center font-extrabold md:pt-0 pt-5 w-11/12 mx-auto md:text-7xl text-6xl">
                   {importProps.data.name}
                 </h1>
                 <div className="flex max-w-sm mx-auto text-center ">
@@ -202,11 +202,11 @@ const Artist = (props: PropsObj) => {
                 })}
               </div>
               <h1 className="mt-10 mb-10 w-7/12 mx-auto">Albums</h1>
-              <div className="flex w-full overflow-auto whitespace-nowrap pl-5 pr-5">
+              <div className="flex w-full overflow-auto whitespace-nowrap md:bg-inherit bg-album pl-5 pr-5">
                 {artist.albums.items.map((item, i) => {
                   if (artist.albums.items[i].album_type === "album") {
                     return (
-                      <div className="min-w-alb ml-5 mr-5 w-auto rounded bg-zinc-900 hover:bg-zinc-800 duration-300 ease-in-out pl-2 pr-2">
+                      <div className="md:min-w-alb min-w-mobAlb ml-5 mr-5 w-auto rounded bg-zinc-900 hover:bg-zinc-800 duration-300 ease-in-out pl-2 pr-2">
                         <div
                           className="w-full h-44 bg-no-repeat bg-center bg-contain"
                           style={{

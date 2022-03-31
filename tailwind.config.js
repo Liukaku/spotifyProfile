@@ -27,6 +27,10 @@ module.exports = {
       },
       minWidth: {
         alb: "20%",
+        mobAlb: "43%",
+      },
+      backgroundColor: {
+        album: "#2d2626",
       },
     },
   },
