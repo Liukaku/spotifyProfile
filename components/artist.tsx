@@ -69,6 +69,7 @@ const Artist = (props: PropsObj) => {
   });
 
   const getTracks = async (type: string) => {
+    console.log(importProps.data);
     const request = await fetch(
       `https://api.spotify.com/v1/artists/${importProps.data.id}/${type}?country=GB`,
       {
@@ -93,7 +94,7 @@ const Artist = (props: PropsObj) => {
         });
       });
     });
-  }, []);
+  }, [props]);
 
   const importProps: PropsObj = props;
 

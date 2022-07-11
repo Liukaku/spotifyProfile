@@ -101,7 +101,7 @@ const ArtistsPage: NextPage = () => {
       <SideBar />
       <div className="w-full gradient">
         <div className="md:w-4/5 w-11/12 mt-10 text-white text-xl font-black flex mx-auto justify-between">
-          <h1>Top Tracks</h1>
+          <h1>Top Artists</h1>
           <div className="flex text-right md:justify-end justify-between">
             {selection.map((option, n) => {
               if (option.key === selected) {
