@@ -61,7 +61,8 @@ const Home: NextPage = () => {
     if (errors.errors) {
       return (
         <h1 className="text-red-500 text-center">
-          There has been an error, please try logging in again
+          This API account is currently in development mode, only authorised
+          accounts are enabled.
         </h1>
       );
     }

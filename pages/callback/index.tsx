@@ -54,10 +54,6 @@ export const Index: NextPage = () => {
 
       if (document.location.href.includes("localhost")) {
         redirectURL = "http://localhost:3000/callback";
-      } else if (document.location.href.includes("spotify-netlify")) {
-        redirectURL = "https://spotify-netlify.netlify.app/callback";
-      } else if (document.location.href.includes("herokuapp")) {
-        redirectURL = "https://spotify-profile-one.herokuapp.com/callback";
       } else if (document.location.href.includes("vercel")) {
         redirectURL = "https://spotify-profile-one.vercel.app/callback";
       } else if (document.location.href.includes("mattstarkey")) {
@@ -89,6 +85,9 @@ export const Index: NextPage = () => {
           } else {
             getTheRest(data.access_token, data.expires_in);
           }
+        })
+        .catch((err) => {
+          window.location.assign("/?error=devMode");
         });
     }
   };
@@ -173,10 +172,22 @@ export const Index: NextPage = () => {
                           playlists: playlistRes,
                           loading: false,
                         });
+                      })
+                      .catch((err) => {
+                        window.location.assign("/?error=devMode");
                       });
                   });
+              })
+              .catch((err) => {
+                window.location.assign("/?error=devMode");
               });
+          })
+          .catch((err) => {
+            window.location.assign("/?error=devMode");
           });
+      })
+      .catch((err) => {
+        window.location.assign("/?error=devMode");
       });
   };
 
