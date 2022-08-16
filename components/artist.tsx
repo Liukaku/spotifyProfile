@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Modal from "./modal";
 import Tracks from "./tracks";
+import Logo from "../imgs/Spotify_Icon_RGB_White.png";
 import type { TrackObj, artistsObj, TrackAlbum, TrackImages } from "./tracks";
 import Image from "next/image";
 
@@ -14,6 +15,9 @@ interface PropsObj {
       total: number;
     };
     id: string;
+    external_urls: {
+      spotify: string;
+    };
   };
   key: number;
   pageView: boolean;
@@ -163,7 +167,7 @@ const Artist = (props: PropsObj) => {
           toggle={modal}
           content={
             <div className="">
-              <div className="sticky top-0 modalWindow">
+              <div className="sticky top-0 modalWindow z-10">
                 <button
                   className="absolute top-0 right-0 rounded-full   w-6 mr-1  mt-1 "
                   onClick={(e) => {
@@ -185,25 +189,34 @@ const Artist = (props: PropsObj) => {
                 <h1 className="text-center font-extrabold md:pt-0 pt-5 w-11/12 mx-auto md:text-7xl text-6xl">
                   {importProps.data.name}
                 </h1>
-                <div className="relative h-64 w-64 mx-auto my-5 rounded-full shadow-lg shadow-black">
-                  <Image
-                    className=" rounded-full"
-                    src={importProps.data.images[0].url}
-                    layout="fill"
-                  />
-                </div>
-                <div className="flex max-w-sm mx-auto text-center ">
-                  {importProps.data.genres.map((item: string, n: number) => {
-                    return (
-                      <h3 key={n} className="mx-auto">
-                        {item}
-                      </h3>
-                    );
-                  })}
-                </div>
-                <h2 className="text-center">
-                  {importProps.data.followers.total} followers
-                </h2>
+              </div>
+              <div className="relative h-64 w-64 mx-auto my-5 rounded-full shadow-lg shadow-black z-0">
+                <Image
+                  className=" rounded-full"
+                  src={importProps.data.images[0].url}
+                  layout="fill"
+                />
+              </div>
+              <div className="flex max-w-sm mx-auto text-center ">
+                {importProps.data.genres.map((item: string, n: number) => {
+                  return (
+                    <h3 key={n} className="mx-auto">
+                      {item}
+                    </h3>
+                  );
+                })}
+              </div>
+              <h2 className="text-center mb-5">
+                {importProps.data.followers.total} followers
+              </h2>
+              <div className="w-44 mx-auto">
+                <a
+                  className="bg-spotifyGreen p-4 rounded-full text-sm font-black"
+                  target="_blank"
+                  href={props.data.external_urls.spotify}
+                >
+                  PLAY ON SPOTIFY
+                </a>
               </div>
               <div className="md:w-9/12 w-11/12 mx-auto">
                 <h1 className="text-xl font-bold mt-3 ml-36">Popular</h1>
@@ -218,13 +231,23 @@ const Artist = (props: PropsObj) => {
                 {artist.albums.items.map((item, i) => {
                   if (artist.albums.items[i].album_type === "album") {
                     return (
-                      <div className="md:min-w-alb min-w-mobAlb ml-5 mr-5 w-auto rounded bg-zinc-900 hover:bg-zinc-800 duration-300 ease-in-out pl-2 pr-2">
+                      <div className="md:min-w-alb min-w-mobAlb ml-5 mr-5 w-auto rounded bg-zinc-900 hover:bg-zinc-800 duration-300 ease-in-out pl-2 pr-2 ">
                         <div
                           className="w-full h-44 bg-no-repeat bg-center bg-contain"
                           style={{
                             backgroundImage: `url(${artist.albums.items[i].images[0].url})`,
                           }}
-                        />
+                        >
+                          <div className="w-full h-full opacity-0 hover:opacity-100 duration-100 ease-linear">
+                            <div className="relative w-4/6 h-4/6 mx-auto ">
+                              <Image
+                                className=""
+                                layout="fill"
+                                src={Logo.src}
+                              />
+                            </div>
+                          </div>
+                        </div>
                         <div className="whitespace-normal">
                           <h1>{artist.albums.items[i].name}</h1>
                           <h1 className="text-gray-500">
