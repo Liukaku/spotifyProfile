@@ -18,6 +18,9 @@ interface TrackObj {
   name: string;
   id: string;
   popularity: number;
+  external_urls: {
+    spotify: string;
+  };
 }
 
 interface artistsObj {
