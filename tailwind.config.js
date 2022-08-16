@@ -31,6 +31,7 @@ module.exports = {
       },
       backgroundColor: {
         album: "#2d2626",
+        spotifyGreen: "#1db954",
       },
     },
   },

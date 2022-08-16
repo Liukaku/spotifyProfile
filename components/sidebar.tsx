@@ -1,5 +1,7 @@
 import { NextComponentType } from "next";
 import Router from "next/router";
+import Logo from "../imgs/Spotify_Icon_RGB_White.png";
+import Image from "next/image";
 
 const SideBar: NextComponentType = () => {
   const sidebarLink = (linkTo: string) => {
@@ -10,6 +12,9 @@ const SideBar: NextComponentType = () => {
   return (
     <div className="md:w-20 md:h-full w-full bottom-0 z-10 h-10 bg-black text-white table fixed">
       <div className="top-0 bg-black md:m-0 md:p-0">
+        <div className="h-14 w-14 mx-auto md:absolute md:ml-3 md:mt-3">
+          <Image src={Logo.src} layout="fill" />
+        </div>
         <div className="md:table-cell flex align-middle h-full md:h-screen">
           <div
             onClick={() => sidebarLink("home")}

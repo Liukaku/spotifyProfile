@@ -14,6 +14,9 @@ interface TrackObj {
   name: string;
   id: string;
   popularity: number;
+  external_urls: {
+    spotify: string;
+  };
 }
 
 interface artistsObj {
@@ -147,9 +150,7 @@ const Tracks = (props: InitialProps) => {
   }
 
   const toggleModalFunc = () => {
-    if (!modal) {
-      toggleModal(true);
-    }
+    toggleModal(true);
   };
 
   return (
@@ -167,7 +168,7 @@ const Tracks = (props: InitialProps) => {
         className={
           !modal
             ? "w-20 h-20 bg-center bg-contain cursor-pointer"
-            : "w-20 h-20 bg-center md:ml-0 ml-5 bg-contain"
+            : "w-20 h-20 bg-center md:ml-0 ml-5 bg-contain cursor-pointer"
         }
         style={{ backgroundImage: `url(${theTrack.album.images[0].url})` }}
       />
@@ -244,9 +245,16 @@ const Tracks = (props: InitialProps) => {
                       <h1 className="md:w-80 w-4/5 text-left ml-5 text-lg">
                         {props.props.album.name}
                       </h1>
-                      <h1 className="md:w-80 w-4/5 text-left ml-5 text-zinc-500">
+                      <h1 className="md:w-80 w-4/5 text-left ml-5 text-zinc-500 mb-5">
                         {props.props.album.release_date}
                       </h1>
+                      <a
+                        className="bg-spotifyGreen p-4 rounded-full text-sm font-black"
+                        target="_blank"
+                        href={props.props.external_urls.spotify}
+                      >
+                        PLAY ON SPOTIFY
+                      </a>
                     </div>
                   </div>
                   <div className="w-full flex justify-evenly mt-3">

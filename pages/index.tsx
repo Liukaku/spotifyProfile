@@ -35,7 +35,7 @@ const Home: NextPage = () => {
   const client: string = process.env.CLIENT_ID;
   const secret: string = process.env.CLIENT_SECRET;
   const scope: string =
-    "user-read-private user-read-email user-read-playback-position user-top-read user-read-recently-played user-follow-read";
+    "user-top-read user-read-recently-played user-follow-read";
 
   const generateRandomString = (length: number) => {
     let text: string = "";

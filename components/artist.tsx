@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Modal from "./modal";
 import Tracks from "./tracks";
 import type { TrackObj, artistsObj, TrackAlbum, TrackImages } from "./tracks";
+import Image from "next/image";
 
 interface PropsObj {
   data: {
@@ -19,7 +20,7 @@ interface PropsObj {
 }
 
 interface imgObj {
-  url: String;
+  url: string;
 }
 
 interface artistState {
@@ -53,6 +54,9 @@ const Artist = (props: PropsObj) => {
         name: "",
         id: "",
         popularity: 0,
+        external_urls: {
+          spotify: "",
+        },
       },
     ],
     albums: {
@@ -181,6 +185,13 @@ const Artist = (props: PropsObj) => {
                 <h1 className="text-center font-extrabold md:pt-0 pt-5 w-11/12 mx-auto md:text-7xl text-6xl">
                   {importProps.data.name}
                 </h1>
+                <div className="relative h-64 w-64 mx-auto my-5 rounded-full shadow-lg shadow-black">
+                  <Image
+                    className=" rounded-full"
+                    src={importProps.data.images[0].url}
+                    layout="fill"
+                  />
+                </div>
                 <div className="flex max-w-sm mx-auto text-center ">
                   {importProps.data.genres.map((item: string, n: number) => {
                     return (
