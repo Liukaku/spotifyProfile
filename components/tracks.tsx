@@ -251,6 +251,7 @@ const Tracks = (props: InitialProps) => {
                       <a
                         className="bg-spotifyGreen p-4 rounded-full text-sm font-black"
                         target="_blank"
+                        rel="noreferrer"
                         href={props.props.external_urls.spotify}
                       >
                         PLAY ON SPOTIFY

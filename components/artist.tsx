@@ -212,6 +212,7 @@ const Artist = (props: PropsObj) => {
               <div className="w-44 mx-auto">
                 <a
                   className="bg-spotifyGreen p-4 rounded-full text-sm font-black"
+                  rel="noreferrer"
                   target="_blank"
                   href={props.data.external_urls.spotify}
                 >
