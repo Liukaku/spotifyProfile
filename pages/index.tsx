@@ -85,7 +85,7 @@ const Home: NextPage = () => {
           Music Profile
         </h1>
         <a
-          className=" mx-auto mt-12 mb-10 text-md px-6 h-10 w-56 pl-10 pt-2 block text-white spotifyBold font-semibold bgSpotifyGreen rounded-full hover:scale-110 duration-700"
+          className="signInBtn mx-auto mt-12 mb-10 text-md px-6 h-10 w-56 pl-10 pt-2 block text-white spotifyBold font-semibold bgSpotifyGreen rounded-full"
           href={completeURL}
         >
           Log in to Spotify
