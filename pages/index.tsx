@@ -75,7 +75,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="mx-auto w-4/5 mt-64">
+      <div className="mx-auto w-4/5 md:mt-64 mt-52">
         <img
           src={Logo.src}
           alt="Spotify Logo in White"
