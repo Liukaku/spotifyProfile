@@ -167,7 +167,8 @@ const Artist = (props: PropsObj) => {
           toggle={modal}
           content={
             <div className="">
-              <div className="sticky top-0 modalWindow z-10">
+              <div className=" md:mt-24 mt-44 blur-lg absolute h-72 w-full opacity-50 bg-center" style={{backgroundImage: `url(${importProps.data.images[0].url})`}} />
+              <div className="sticky top-0 modalHeaderBackground z-10">
                 <button
                   className="absolute top-0 right-0 rounded-full   w-6 mr-1  mt-1 "
                   onClick={(e) => {
@@ -190,13 +191,15 @@ const Artist = (props: PropsObj) => {
                   {importProps.data.name}
                 </h1>
               </div>
+
               <div className="relative h-64 w-64 mx-auto my-5 rounded-full shadow-lg shadow-black z-0">
                 <Image
-                  className=" rounded-full"
+                  className="rounded-full"
                   src={importProps.data.images[0].url}
                   layout="fill"
                 />
               </div>
+
               <div className="flex max-w-sm mx-auto text-center ">
                 {importProps.data.genres.map((item: string, n: number) => {
                   return (
@@ -239,8 +242,8 @@ const Artist = (props: PropsObj) => {
                             backgroundImage: `url(${artist.albums.items[i].images[0].url})`,
                           }}
                         >
-                          <div className="w-full h-full opacity-0 hover:opacity-100 duration-100 ease-linear">
-                            <div className="relative w-4/6 h-4/6 mx-auto ">
+                          <div className="w-full h-full opacity-0 hover:opacity-100 duration-100 ease-linear ">
+                            <div className="relative w-3/6 mx-auto aspect-square md:top-6 top-16">
                               <Image
                                 className=""
                                 layout="fill"
